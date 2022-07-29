@@ -6,7 +6,7 @@ A library plugin that provides an easy way to use SQLite DB on MInecraft Servers
 # How to Use
 **NOTE:** Some examples are written in TriggerReactor script language since that was my main purpose of writing this plugin; to use SQLite with TriggerReactor. However, translating the script to Java should be very easy.
 
-**What is TriggerReactor?** TriggerReactor is a powerful scripting engine that provides an easy and convenient Minecraft server scripting environment. The engine provides amazing features such as importing Bukkit API methods and third-party plugin access. I am not paid to advertise this pluging. https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/
+**What is TriggerReactor?** TriggerReactor is a powerful scripting engine that provides an easy and convenient Minecraft server scripting environment. The engine provides amazing features such as importing Bukkit API methods and third-party plugin access. I am not paid to advertise this plugin. https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/
 
 
 # Future Updates
