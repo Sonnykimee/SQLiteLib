@@ -1,7 +1,7 @@
 **Still setting up**
 
 # SQLiteLib
-A library plugin that provides an easy way to use SQLite DB on MInecraft Servers.
+A library plugin that provides an easy way to use SQLite DB on Minecraft Servers.
 
 # How to Use
 **NOTE:** Some examples are written in TriggerReactor script language since that was my main purpose of writing this plugin; to use SQLite with TriggerReactor. However, translating the script to Java should be very easy.
