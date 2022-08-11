@@ -12,7 +12,7 @@ I decided to write this plugin after studying SQLiteLib written by pablo67340 (h
 # Do I need to install SQLite before using this plugin?
 **No. You don't.**
 
-Due to the compact, serveless architecture of SQLite, **you actually don't even need to install SQLite** before using this plugin. The JDBC driver inside the plugin has capability to handle SQLite DB files.
+Due to the compact, serveless architecture of SQLite, **you actually don't even need to install SQLite** before using this plugin. The JDBC driver inside the plugin handles SQLite DB files.
 
 If you need a GUI SQLite database editor so that you can edit your databases outside of the Minceraft server, I recommend: [DB Browser for SQLite](https://sqlitebrowser.org/)
 
