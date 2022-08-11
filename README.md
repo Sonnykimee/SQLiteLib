@@ -31,7 +31,7 @@ sqliteLib = plugin("SQLiteLib") // Same as Bukkit.getPluginManager().getPlugin("
 IF sqliteLib
     db = sqliteLib.DB() // Get default SQLite DB instance
 
-    // Create a connection to a DB file that is located at "<root>/plugins/SavedData/DB/test.db".
+    // Create a connection to a DB file that is located at "<root>/plugins/TriggerReactor/SavedData/DB/test.db".
     // The <root> is the location of your bukkit jar file.
     db.connect( "plugins/TriggerReactor/SavedData/DB/test.db" )
 
