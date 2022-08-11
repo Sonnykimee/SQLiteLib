@@ -37,7 +37,7 @@ IF sqliteLib
     db.execute( "SELECT * FROM CITIZENS WHERE NAME = 'Sonny'" )
     sonny = db.fetch()
     credit = sonny.get(0).get(2)
-    #MESSAGE "Social Credit: " + credit
+    #MESSAGE "Credit: " + credit
 
     // Use the Cursor class to fetch data
     db.execute( "SELECT * FROM CITIZENS" )
@@ -46,7 +46,7 @@ IF sqliteLib
 
     // Iterate
     WHILE cur.next()
-        #MESSAGE "Name: " + cur.getString("NAME") + ", Credit: " +  cur.getInt("CREDIT")
+        #MESSAGE "Name: " + cur.getString("NAME") + ", Credit: " + cur.getInt("CREDIT")
     ENDWHILE
 
     db.close() // Close DB
