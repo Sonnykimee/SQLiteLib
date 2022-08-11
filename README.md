@@ -33,7 +33,7 @@ IF sqliteLib
 
     // Create a connection to a DB file that is located at "<root>/plugins/SavedData/DB/test.db".
     // The <root> is the location of your bukkit jar file.
-    db.connect( "plugins/SavedData/DB/test.db" )
+    db.connect( "plugins/TriggerReactor/SavedData/DB/test.db" )
 
     // Create a table
     db.execute( "CREATE TABLE IF NOT EXISTS CITIZENS (CIN INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(20) NOT NULL, CREDIT INTEGER NOT NULL)" )
