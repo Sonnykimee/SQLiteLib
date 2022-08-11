@@ -29,9 +29,9 @@ IF sqliteLib
     db.execute( "CREATE TABLE IF NOT EXISTS CITIZENS (CIN INTEGER PRIMARY KEY NOT NULL, NAME VARCHAR(20) NOT NULL, CREDIT INTEGER NOT NULL)" )
 
     // Insert data
-    db.execute( "INSERT OR IGNORE INTO CITIZENS VALUES (0, 'Sonny', 2500)" )
-    db.execute( "INSERT OR IGNORE INTO CITIZENS VALUES (1, 'Tonny', 1500)" )
-    db.execute( "INSERT OR IGNORE INTO CITIZENS VALUES (2, 'Johnny', 800)" )
+    db.execute( "INSERT OR REPLACE INTO CITIZENS VALUES (0, 'Sonny', 2500)" )
+    db.execute( "INSERT OR REPLACE INTO CITIZENS VALUES (1, 'Tonny', 1500)" )
+    db.execute( "INSERT OR REPLACE INTO CITIZENS VALUES (2, 'Johnny', 800)" )
     
     // Fetch data
     db.execute( "SELECT * FROM CITIZENS WHERE NAME = 'Sonny'" )
