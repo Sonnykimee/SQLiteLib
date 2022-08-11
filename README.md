@@ -14,7 +14,7 @@ I decided to write this plugin after studying SQLiteLib written by pablo67340 (h
 
 Due to the compact, serveless architecture of SQLite, **you actually don't even need to install SQLite** before using this plugin. The JDBC driver inside the plugin handles SQLite DB files.
 
-If you need a GUI SQLite database editor, you can try: <a href="https://sqlitebrowser.org" target="_blank" rel="noopener noreferrer">DB Browser for SQLite</a>
+`If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](https://sqlitebrowser.org)`
 
 # Usage
 **NOTE:** Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
