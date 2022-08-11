@@ -1,6 +1,7 @@
 **Still setting up**
 
 # SQLiteLib
+![alt text](images/sqlitelib_logo.png "SQLiteLib Logo")
 A library plugin that provides an easy way to use SQLite DB on Minecraft Servers.
 
 I decided to write this plugin after finding out about SQLiteLib by pablo67340 (https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/ https://www.spigotmc.org/resources/sqlitelib.46801/) which I believe now it's out of support. Also, this plugin imports SQLite JDBC 3.36.0.3 by xerial (https://github.com/xerial/sqlite-jdbc). I also studied Python JDBC to keep the use of plugin easy.
