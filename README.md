@@ -9,7 +9,7 @@ Most Minecraft servers store their user data on a single YAML file or use MySQL 
 
 I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) which is now out of support. This plugin statically imports SQLite JDBC Driver 3.39.2.0 written by xerial (https://github.com/xerial/sqlite-jdbc) which is again, a fork of Zentus' SQLite JDBC Driver. I copied some of Python JayDeBeApi usage to make the usage as easy as possible.
 
-# Do I need to install SQLite before using this plugin?
+***Do I need to install SQLite before using this plugin?***
 **No. You don't.**
 
 Due to the compact, serveless architecture of SQLite, **you actually don't even need to install SQLite** before using this plugin. The JDBC driver inside the plugin handles SQLite DB files.
