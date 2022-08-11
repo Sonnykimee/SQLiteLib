@@ -5,7 +5,14 @@
 
 SQLiteLib is a library plugin that provides an easy way to use SQLite database on Minecraft servers.
 
+Most Minecraft servers store their user data on a single YAML file, or use MySQL as their DBMS. However, storing data on a YAML file is unsafe and performance inefficient, and MySQL might be a bit overwhelming to install and set up configurations. If you are a Minecraft server admin who is looking for a fast, light, and zero-configuration database, SQLite is a good solution. SQLiteLib is a Bukkit plugin that helps you to easily use SQLite databases on your Minecraft server.You **DO NOT NEED INSTALL SQLite** to use this plugin since the JDBC driver inside the plugin can handle SQLite DB by itself.
+
 I decided to write this plugin after studying SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) which is now out of support. This plugin statically imports SQLite JDBC Driver 3.39.2.0 written by xerial (https://github.com/xerial/sqlite-jdbc) which is again, a fork of Zentus' SQLite JDBC Driver. I copied some of Python JayDeBeApi usage to make the usage as easy as possible.
+
+# Do I need to install SQLite to use this plugin?
+**No. You don't.** Due to the compact, serveless architecture of SQLite, you actually don't even need to install SQLite before using this plugin. The JDBC driver inside the plugin has capability to handle SQLite DB files.
+
+If you need a GUI SQLite database editor so that you can edit your databases outside of the Minceraft server, I recommend: [DB Browser for SQLite](https://sqlitebrowser.org/)
 
 # Usage
 **NOTE:** Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
