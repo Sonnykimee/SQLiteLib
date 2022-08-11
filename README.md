@@ -14,9 +14,7 @@ I decided to write this plugin after studying SQLiteLib written by pablo67340 (h
 
 Due to the compact, serveless architecture of SQLite, **you actually don't even need to install SQLite** before using this plugin. The JDBC driver inside the plugin handles SQLite DB files.
 
-If you need a GUI SQLite database editor so that you can edit your databases outside of the Minceraft server,
-
-I recommend: [DB Browser for SQLite](https://sqlitebrowser.org/)
+If you need a GUI SQLite database editor, I recommend: [DB Browser for SQLite](https://sqlitebrowser.org/)
 
 # Usage
 **NOTE:** Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
