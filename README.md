@@ -10,6 +10,8 @@ I decided to write this plugin after studying SQLiteLib written by pablo67340 (h
 # Usage
 **NOTE:** Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
 
+**What is TriggerReactor?** TriggerReactor is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine provides amazing features such as importing Bukkit API methods and third-party plugin access. BTW, I am not paid to advertise this plugin.
+
 **example_01.trg**
 ```java
 // IMPORT org.bukkit.Bukkit
@@ -51,7 +53,6 @@ IF sqliteLib
 ENDIF
 ```
 
-**What is TriggerReactor?** TriggerReactor is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine provides amazing features such as importing Bukkit API methods and third-party plugin access. BTW, I am not paid to advertise this plugin.
 
 # Future Updates
 2. Image -> BLOB write support (partially implemented)
