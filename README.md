@@ -20,7 +20,7 @@ If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](h
 # Usage
 Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
 
-***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access. BTW, I am not paid to advertise this plugin.
+***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
 
 ### Linking Your Plugin with SQLiteLib ###
 1. Download SQLiteLib.jar and put it in your **plugins** folder (just like how you add any other plugins to your server).
