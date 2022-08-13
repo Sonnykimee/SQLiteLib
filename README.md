@@ -199,7 +199,7 @@ if (sqliteLib != null) {
 }
 ```
 
-**example_01 (TR)**
+**example_01 (TriggerReactor)**
 ```java
 sqliteLib = plugin("SQLiteLib") // Same as Bukkit.getPluginManager().getPlugin("SQLiteLib")
 
