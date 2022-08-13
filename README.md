@@ -44,6 +44,21 @@ public void onEnable() {
 }
 ```
 
+### Getting default DB and Creating a Connection ###
+```java
+if (sqliteLib != null) {
+    SQLite db = sqliteLib.DB(); // Getting the default SQLite DB instance.
+    
+    // Create a connection to a DB file that is located at "<root>/plugins/TriggerReactor/SavedData/DB/test.db".
+    // The <root> is the location of your bukkit jar file.
+    db.connect( "plugins/TriggerReactor/SavedData/DB/test.db" );
+}
+```
+`DB()` method returns a default SQLite DB instance that is pre-initialized. To create a connection to a DB file, use `connect(fileName)`. **fileName** parameter is the path of your DB file location. In this example, the path is "plugins/TriggerReactor/SavedData/DB/test.db".
+
+If the DB file does not exist, it will automatically create a new DB file. **Note that the plugin does not create a new folder**. You must pass an existing directory.
+
+
 **example_01 (Java)**
 ```java
 SQLiteLib sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
