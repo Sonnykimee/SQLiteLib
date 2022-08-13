@@ -60,7 +60,7 @@ if (sqliteLib != null) {
 
 To create a connection to a DB file, use `connect(fileName)`. **fileName** parameter is the path of your DB file location from the root of your server folder (where the bukkit jar file is). In this example, the path is "plugins/TriggerReactor/SavedData/DB/test.db" from the root of my server folder. If the DB file does not exist, it will automatically create a new DB file. **Note that the plugin does not create a new folder, though. You must pass an existing directory.**
 
-#### Using more than one DB ####
+### Using more than one DB ###
 You can create more than just the default DB using below code:
 ```java
 // Create a new SQLite DB using createDB(dbName).
@@ -72,6 +72,20 @@ myNewDB = sqliteLib.DB("MyNewDB");
 myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```
 **dbName** parameter is a String, and you can give any name to it. However, be careful not to use a duplicating name, the new one will replace the pre-existing one.
+
+### Executing a Statement ###
+You can execute SQLite statements using `execute(statement)` method.
+
+Below code creates a new DB Table **PERSON** that has **NAME** and **AGE** as its values.
+```java
+if (db.execute("CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)")) {
+    // Successfully executed the statement
+    // ...
+} else {
+    // Failed to execute the statement
+    // ...
+}
+```
 
 **example_01 (Java)**
 ```java
@@ -112,9 +126,6 @@ if (sqliteLib != null) {
     db.close(); // Close DB
 }
 ```
-
-### Executing a Statement ###
-
 
 **example_01 (TR)**
 ```java
