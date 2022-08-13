@@ -87,6 +87,20 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
+### Fetching Data from DB ###
+There are two ways to fetch data: Using a `Cursor`, or use `fetch()` method.
+
+#### 1. Cursor ####
+`Cursor` provides a convenient way to get data without having to parse the data by yourself.
+
+Here's an example of using a `Cursor`. **Let's assume that PERSON table has three items: (Sonny, 13), (Tonny, 25), and (Ronny, 31):**
+```java
+// Get all items from Person table.
+if (db.execute( "SELECT * FROM PERSON" )) {
+    Cursor cur = db.cursor();
+}
+```
+
 **example_01 (Java)**
 ```java
 SQLiteLib sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
