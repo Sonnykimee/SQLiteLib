@@ -154,7 +154,7 @@ FYI, you should not assume that the data will always be ordered unless you speci
 
 You can also get a specific row using `fetchRow(index)`:
 ```java
-db.execute( "SELECT * FROM PERSON" );
+db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 
 <List<Object>> row = db.fetchRow(0);
 ```
