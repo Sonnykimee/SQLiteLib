@@ -66,6 +66,7 @@ if (sqliteLib != null) {
 
     // Create a connection to a DB file that is located at "<root>/plugins/TriggerReactor/SavedData/DB/test.db".
     // The <root> is the location of your bukkit jar file.
+    // If the file does not exist, the plugins will create a new DB file.
     db.connect( "plugins/TriggerReactor/SavedData/DB/test.db" );
 
     // Create a table
