@@ -14,11 +14,6 @@ public class SQLite {
 	
 	private Connection conn; // DB connection.
 	
-	/*
-	 *  Stores fetched data
-	 *  List<List<Object>>: Table column
-	 *  List<Object>: Table row
-	 */
 	private List<List<Object>> data;
 	
 	// Cursor provides a convenient way to get values from the read data.
@@ -257,18 +252,8 @@ public class SQLite {
 		
 		private int position;
 		
-		/*
-		 *  Store fetched data
-		 *  List<List<Object>>: Table column
-		 *  List<Object>: Table row
-		 */
 		private List<List<Object>> data;
 		
-		/*
-		 * Store column names
-		 * List index = column index
-		 * String = name of the column
-		 */
 		private List<String> columnNames;
 		
 		private Cursor(List<List<Object>> data, List<String> columnNames) {
