@@ -30,16 +30,6 @@ Some examples are written in TriggerReactor script language since that was my in
 depend: [SQLiteLib]
 ```
 
-**Example plugin.yml:**
-```yml
-main: me.sonny.SQLiteLibTester.TesterMain
-name: SQLiteLibTester
-version: 1.0.0
-description: A tester plugin for SQLiteLib.
-author: Sonny Kim
-depend: [SQLiteLib]
-```
-
 ### Getting an instance of SQLiteLib ###
 Use the following code to access the library.
 ```java
