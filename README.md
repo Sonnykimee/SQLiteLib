@@ -17,7 +17,7 @@ Due to the compact, serveless architecture of SQLite, ***you actually don't even
 
 If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](https://sqlitebrowser.org)
 
-# Usage
+## Usage
 Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
 
 ***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
@@ -88,18 +88,27 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 ```
 
 ### Fetching Data from DB ###
-There are two ways to fetch data: Using a `Cursor`, or use `fetch()` method.
+There are two ways to fetch data: Using `Cursor` class, or using `fetch()` method.
 
-#### 1. Cursor ####
+#### 1. Using Cursor ####
 `Cursor` provides a convenient way to get data without having to parse the data by yourself.
 
 Here's an example of using a `Cursor`. **Let's assume that PERSON table has three items: (Sonny, 13), (Tonny, 25), and (Ronny, 31):**
 ```java
 // Get all items from Person table.
 if (db.execute( "SELECT * FROM PERSON" )) {
-    Cursor cur = db.cursor();
+    Cursor cur = db.cursor(); // Get Cursor instance
+    
+    // Iterate through the read data
+    while(cur.next()) {
+    	Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString("NAME") + ", Age: " + cur.getInt("AGE"));
+    }
 }
 ```
+Result:
+Name: Sonny, Age: 13
+Name: Tonny, Age: 25
+Name: Ronny, Age: 31
 
 **example_01 (Java)**
 ```java
@@ -181,7 +190,7 @@ ENDIF
 ```
 
 
-# Future Updates
+## Future Updates
 1. Image -> BLOB write support (now partially implemented)
 2. Configurations
 3. Statement class (wrapper class of PreparedStatement) that allows users to use setString(index, value) method.
