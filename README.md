@@ -120,7 +120,7 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-Cursor also has `getFloat(column)`, `getDouble(column)`, `getString(column)`, and `getBool(column)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
+Cursor also contains `getFloat(column)`, `getDouble(column)`, `getString(column)`, and `getBool(column)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
 
 #### 2. Using fetch() ####
 `fetch()` method returns the data as List<List<Object>>.
