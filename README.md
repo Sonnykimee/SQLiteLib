@@ -168,5 +168,6 @@ ENDIF
 
 
 # Future Updates
-1. Image -> BLOB write support (partially implemented)
+1. Image -> BLOB write support (now partially implemented)
 2. Configurations
+3. Statement class (wrapper class of PreparedStatement) that allows users to use setString(index, value) method.
