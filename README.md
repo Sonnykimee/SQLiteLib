@@ -44,7 +44,7 @@ public void onEnable() {
 }
 ```
 
-### Getting default DB and Creating a Connection ###
+### Accessing default DB and Creating a Connection ###
 ```java
 if (sqliteLib != null) {
     SQLite db = sqliteLib.DB(); // Getting the default SQLite DB instance.
