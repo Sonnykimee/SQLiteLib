@@ -90,7 +90,7 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 ### Fetching Data from DB ###
 There are two ways to fetch data: Using `Cursor` class, or using `fetch()` method.
 
-#### 1. Using Cursor ####
+#### 1. Using Cursor (recommended) ####
 `Cursor` provides a convenient way to get data without having to parse the data by yourself.
 
 Here's an example of using a `Cursor`. **Let's assume that PERSON table has three items: (Sonny, 13), (Tonny, 25), and (Ronny, 31):**
@@ -101,9 +101,10 @@ if (db.execute( "SELECT * FROM PERSON" )) {
     
     // Iterate through the read data
     while(cur.next()) {
+    	// Recommended: use the field name of the column as parameter to get the stored value.
     	Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString("NAME") + ", Age: " + cur.getInt("AGE"));
 	
-	// You can also use column index (starting at 0). See below code:
+	// You can also use column index (starting at 0), but this is unsafe because the order of column is not always guaranteed.
 	// Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString(0) + ", Age: " + cur.getInt(1));
     }
 }
@@ -117,12 +118,33 @@ Name: Ronny, Age: 31<br />
 
 If there is a next row, `next()` method moves the position of the pointer to the next row, and returns **true**. Otherwise **false**. The position starts at -1. You can reset the position of the pointer using `beforeFirst()` method which will move it back to -1.
 
-Using `getInt(column name)`, or `getInt(column index)` method, you can get the the current item's that is stored in the specified column as an intger type. You can also use `getFloat(column)`, `getDouble(column)`, getString(column), and getBool(column). **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
+Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-FYI, you should not assume that the data will always be ordered unless you specify. Means returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data.
+Cursor also has `getFloat(column)`, `getDouble(column)`, `getString(column)`, and `getBool(column)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
 
 #### 2. Using fetch() ####
-`fetch()`
+`fetch()` method returns the data as List<List<Object>>.
+
+Since the data is an `Object` instance, you need to manually parse Object into a specific data type.
+
+Here's an example of how to use `fetch()`.
+```java
+// Get all items from Person table.
+db.execute( "SELECT * FROM PERSON" );
+
+// fetch data
+List<List<Object>> data = db.fetch();
+
+// Loop through the data
+for (int i=0; i=data.size(); i++) {
+    String name = data.get(i).get(0); // Get NAME
+    int age = (Integer) data.get(i).get(1); // Get AGE
+    Bukkit.getConsoleSender().sendMessage(": " + credit);
+}
+```
+
+
+FYI, you should not assume that the data will always be ordered unless you specify. Means returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data. This is the reason why I recommend using Cursor.
 
 **example_01 (Java)**
 ```java
