@@ -137,7 +137,7 @@ List<List<Object>> data = db.fetch();
 
 // Loop through the data
 for (int i=0; i=data.size(); i++) {
-    String name = data.get(i).get(0); // Get NAME
+    String name = data.get(i).get(0).toString(); // Get NAME
     int age = (Integer) data.get(i).get(1); // Get AGE
 
     Bukkit.getConsoleSender().sendMessage(name + "'s age : " + age);
