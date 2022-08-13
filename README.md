@@ -119,7 +119,7 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, or `getInt(column index)` method, you can get the the current item's that is stored in the specified column as an intger type. You can also use `getFloat(column)`, `getDouble(column)`, getString(column), and getBool(column). **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
 
-FYI, you should not assume that the data will always be ordered unless you specify. Returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement are not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data.
+FYI, you should not assume that the data will always be ordered unless you specify. Means returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data.
 
 #### 2. Using fetch() ####
 `fetch()`
