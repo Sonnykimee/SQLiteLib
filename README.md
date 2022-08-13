@@ -102,6 +102,9 @@ if (db.execute( "SELECT * FROM PERSON" )) {
     // Iterate through the read data
     while(cur.next()) {
     	Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString("NAME") + ", Age: " + cur.getInt("AGE"));
+	
+	// You can also use column index (starting at 0). See below code:
+	// Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString(0) + ", Age: " + cur.getInt(1));
     }
 }
 ```
@@ -111,6 +114,12 @@ Name: Sonny, Age: 13<br />
 Name: Tonny, Age: 25<br />
 Name: Ronny, Age: 31<br />
 </p>
+If there is a next row, `next()` method moves the position of the pointer to the next row, and returns **true**. Otherwise **false**. The position starts at -1. You can reset the position of the pointer using `beforeFirst()` method which will move it back to -1.
+
+Using `getInt(column name)`, or `getInt(column index)` method, you can get the the current item's that is stored in the specified column as an intger type. You can also use `getFloat(column)`, `getDouble(column)`, getString(column), and getBool(column). **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
+
+#### 2. Using fetch() ####
+`fetch()`
 
 **example_01 (Java)**
 ```java
