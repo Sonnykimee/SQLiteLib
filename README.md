@@ -106,6 +106,7 @@ if (db.execute( "SELECT * FROM PERSON" )) {
 }
 ```
 Result:
+
 Name: Sonny, Age: 13
 
 Name: Tonny, Age: 25
