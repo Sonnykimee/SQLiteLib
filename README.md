@@ -105,13 +105,12 @@ if (db.execute( "SELECT * FROM PERSON" )) {
     }
 }
 ```
-Result:
-
-Name: Sonny, Age: 13
-
-Name: Tonny, Age: 25
-
-Name: Ronny, Age: 31
+<p>
+Result:<br />
+Name: Sonny, Age: 13<br />
+Name: Tonny, Age: 25<br />
+Name: Ronny, Age: 31<br />
+</p>
 
 **example_01 (Java)**
 ```java
