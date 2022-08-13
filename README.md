@@ -31,7 +31,7 @@ Some examples are written in TriggerReactor script language since that was my in
 depend: [SQLiteLib]
 ```
 
-Example:
+**plugin.yml example:**
 ```yml
 main: me.sonny.SQLiteLibTester.TesterMain
 name: SQLiteLibTester
