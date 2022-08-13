@@ -30,7 +30,7 @@ Some examples are written in TriggerReactor script language since that was my in
 depend: [SQLiteLib]
 ```
 
-### Accessing an instance of SQLiteLib ###
+### Accessing SQLiteLib instance ###
 Use the following code to access the library.
 ```java
 public static SQLiteLib sqliteLib;
