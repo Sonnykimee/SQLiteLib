@@ -25,8 +25,7 @@ Some examples are written in TriggerReactor script language since that was my in
 ### Linking Your Plugin with SQLiteLib ###
 1. Download SQLiteLib.jar and put it in your **plugins** folder (just like how you add any other plugins to your server).
 2. Add SQLiteLib.jar to your Java project build path.
-
-3. Then, add `SQLiteLib` as a dependency to your plugin.yml file:
+3. Then, add `SQLiteLib` as a dependency to your project's **plugin.yml** file:
 ```yml
 depend: [SQLiteLib]
 ```
@@ -39,11 +38,8 @@ version: 1.0.0
 description: A tester plugin for SQLiteLib.
 author: Sonny Kim
 depend: [SQLiteLib]
-
-commands:
-  sqltest:
-    description: SQLite testing commands.
 ```
+
 
 
 **example_01 (Java)**
