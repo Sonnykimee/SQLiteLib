@@ -76,7 +76,6 @@ myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```java
 SQLiteLib sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
 
-// Just double checking if the plugin was properly loaded.
 if (sqliteLib != null) {
     SQLite db = sqliteLib.DB(); // Get default SQLite DB instance
 
