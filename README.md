@@ -47,10 +47,10 @@ public static SQLiteLib sqliteLib;
 
 @Override
 public void onEnable() {
-	sqliteLib = SQLiteLib.getSQLiteLib();
+    sqliteLib = SQLiteLib.getSQLiteLib();
 
     // VVVV You can also use the code below. They are almost the same. VVVV
-	// sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
+    // sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
 }
 ```
 
