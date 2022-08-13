@@ -76,7 +76,7 @@ myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ### Executing a Statement ###
 You can execute SQLite statements using `execute(statement)` method.
 
-Below code creates a new DB Table **PERSON** that has **NAME** and **AGE** as its values, then inserts an item that has name 'Sonny', and 13 years old.
+Below code creates a new DB Table **PERSON** that has **NAME** and **AGE** as its values, then inserts an item that has name Sonny, and 13 years old:
 ```java
 if (db.execute("CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)")) {
     // Successfully executed the statement
