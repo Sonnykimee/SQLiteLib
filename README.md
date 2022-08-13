@@ -150,7 +150,7 @@ Tonny's age: 25<br />
 Ronny's age: 31<br />
 </p>
 
-FYI, you should not assume that the data will always be ordered unless you specify. Means returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data. This is the reason why I recommend using Cursor.
+FYI, you should not assume that the data will always be ordered unless you specify. For instance, returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong. Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data. This is the reason why I recommend using Cursor.
 
 **example_01 (Java)**
 ```java
