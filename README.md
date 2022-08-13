@@ -70,7 +70,7 @@ myNewDB = sqliteLib.DB("MyNewDB");
 					
 myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```
-**dbName** parameter is a String and you can give any name. However, be careful not to use a duplicating name, the new one will replace the pre-existing one.
+**dbName** parameter is a String, and you can give any name to it. However, be careful not to use a duplicating name, the new one will replace the pre-existing one.
 
 **example_01 (Java)**
 ```java
