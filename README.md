@@ -156,7 +156,7 @@ You can also get a specific row using `fetchRow(index)`:
 ```java
 db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 
-<List<Object>> row = db.fetchRow(0);
+<List<Object>> sonny = db.fetchRow(0);
 ```
 
 ## Examples ##
