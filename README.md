@@ -139,10 +139,16 @@ List<List<Object>> data = db.fetch();
 for (int i=0; i=data.size(); i++) {
     String name = data.get(i).get(0); // Get NAME
     int age = (Integer) data.get(i).get(1); // Get AGE
-    Bukkit.getConsoleSender().sendMessage(": " + credit);
+
+    Bukkit.getConsoleSender().sendMessage(name + "'s age : " + age);
 }
 ```
-
+<p>
+Result:<br />
+Sonny's age: 13<br />
+Tonny's age: 25<br />
+Ronny's age: 31<br />
+</p>
 
 FYI, you should not assume that the data will always be ordered unless you specify. Means returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong! Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data. This is the reason why I recommend using Cursor.
 
