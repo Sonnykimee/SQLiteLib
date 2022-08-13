@@ -153,5 +153,5 @@ ENDIF
 
 
 # Future Updates
-2. Image -> BLOB write support (partially implemented)
-3. Configurations
+1. Image -> BLOB write support (partially implemented)
+2. Configurations
