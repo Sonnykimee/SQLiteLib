@@ -152,6 +152,13 @@ Ronny's age: 31<br />
 
 FYI, you should not assume that the data will always be ordered unless you specify. For instance, returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong. Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data. This is the reason why I recommend using Cursor.
 
+You can also get a specific row using `fetchRow(index)`:
+```java
+db.execute( "SELECT * FROM PERSON" );
+
+<List<Object>> row = db.fetchRow(0);
+```
+
 **example_01 (Java)**
 ```java
 SQLiteLib sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
