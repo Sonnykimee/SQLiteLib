@@ -159,6 +159,7 @@ db.execute( "SELECT * FROM PERSON" );
 <List<Object>> row = db.fetchRow(0);
 ```
 
+## Examples ##
 **example_01 (Java)**
 ```java
 SQLiteLib sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
@@ -198,8 +199,7 @@ if (sqliteLib != null) {
     db.close(); // Close DB
 }
 ```
-
-## Examples ##
+	
 **example_01 (TriggerReactor)**
 ```java
 sqliteLib = plugin("SQLiteLib") // Same as Bukkit.getPluginManager().getPlugin("SQLiteLib")
