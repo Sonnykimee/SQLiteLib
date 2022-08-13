@@ -40,7 +40,19 @@ author: Sonny Kim
 depend: [SQLiteLib]
 ```
 
+#### Getting an instance of SQLiteLib ####
+Use the following code to access the library.
+```java
+public static SQLiteLib sqliteLib;
 
+@Override
+public void onEnable() {
+	sqliteLib = SQLiteLib.getSQLiteLib();
+
+    // VVVV You can also use the code below. They are almost the same. VVVV
+	// sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
+}
+```
 
 **example_01 (Java)**
 ```java
