@@ -176,12 +176,17 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 <List<Object>> sonny = db.fetchRow(0);
 ```
 
+### Writing BLOB ###
+BLOB (Binary Large Object) types can contain large amount of data such as images. As of version 0.2.0, SQLiteLib only has a temporary solution to write BLOB.
+
+Check out a simple plugin I wrote to learn how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
+	
 ## Examples ##
 Basics: [example_01](/examples/example_01.md)
 
 A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
 
 ## Future Updates
-1. Image -> BLOB write support (now partially implemented. See [SQLiteLibTester](/examples/TesterPlugin))
+1. Image -> BLOB write support (now partially implemented)
 2. Configurations
 3. Statement class (wrapper class of PreparedStatement) that allows users to use setString(index, value) method.
