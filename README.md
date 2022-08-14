@@ -7,7 +7,7 @@ Most Minecraft servers store their user data on a single YAML file or use MySQL 
 
 I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) which is now out of support. This plugin statically links SQLite JDBC Driver 3.39.2.0 written by xerial (https://github.com/xerial/sqlite-jdbc).
 
-----
+---
 **Do I need to install SQLite before using this plugin?**
 
 ***No. You don't.***
@@ -21,7 +21,7 @@ Some examples are written in TriggerReactor script language since that was my in
 
 ***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
 
-----
+---
 ### Linking Your Plugin Project with SQLiteLib ###
 1. Download **SQLiteLib.jar** and put it in your **plugins** folder (just like how you add any other plugins to your server).
 2. Add **SQLiteLib.jar** to your Java project build path.
