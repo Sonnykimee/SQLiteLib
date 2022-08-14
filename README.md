@@ -30,6 +30,7 @@ Some examples are written in TriggerReactor script language since that was my in
 depend: [SQLiteLib]
 ```
 
+---
 ### Accessing SQLiteLib instance ###
 Use the following code to access the library.
 ```java
@@ -44,6 +45,7 @@ public void onEnable() {
 }
 ```
 
+---
 ### Accessing default DB and Creating a Connection ###
 Once, your project is properly linked to SQLiteLib, you can access its classes and methods. Use the below code to access the default DB and create a connection to a DB file.
 ```java
@@ -73,6 +75,7 @@ myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```
 **dbName** parameter is a String, and you can give any name to it. However, be careful not to use a duplicating name, the new one will replace the pre-existing one.
 
+---
 ### Executing a Statement ###
 You can execute SQLite statements using `execute(statement)` method.
 
@@ -87,6 +90,7 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
+---
 ### Fetching Data from DB ###
 There are two ways to fetch data: Using `Cursor` class, or using `fetch()` method.
 
