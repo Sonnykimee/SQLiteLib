@@ -1,3 +1,16 @@
+- [SQLiteLib](#sqlitelib)
+  * [Usage](#usage)
+    + [Linking Your Plugin Project with SQLiteLib](#linking-your-plugin-project-with-sqlitelib)
+    + [Accessing SQLiteLib instance](#accessing-sqlitelib-instance)
+    + [Accessing default DB and Creating a Connection](#accessing-default-db-and-creating-a-connection)
+    + [Using more than one DB](#using-more-than-one-db)
+    + [Executing a Statement](#executing-a-statement)
+    + [Fetching Data from DB](#fetching-data-from-db)
+      - [1. Using Cursor (recommended)](#1-using-cursor--recommended-)
+      - [2. Using fetch()](#2-using-fetch--)
+  * [Examples](#examples)
+  * [Future Updates](#future-updates)
+
 # SQLiteLib
 <img src="images\sqlitelib_logo.png" width=50% height=50%>
 
