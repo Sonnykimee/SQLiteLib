@@ -13,7 +13,7 @@
   * [Future Updates](#future-updates)
 
 # SQLiteLib
-<img src="images\sqlitelib_logo.png" width=50% height=50%>
+<img src="images\sqlitelib_logo.png">
 
 SQLiteLib is a library plugin that provides an easy way to use the SQLite database on Minecraft servers.
 
