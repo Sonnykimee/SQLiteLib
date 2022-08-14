@@ -182,6 +182,6 @@ Basics: [example_01](/examples/example_01.md)
 A simple plugin I wrote to help your understanding: [SQLiteLibTester](/examples/TesterPlugin)
 
 ## Future Updates
-1. Image -> BLOB write support (now partially implemented)
+1. Image -> BLOB write support (now partially implemented. See [SQLiteLibTester](/examples/TesterPlugin))
 2. Configurations
 3. Statement class (wrapper class of PreparedStatement) that allows users to use setString(index, value) method.
