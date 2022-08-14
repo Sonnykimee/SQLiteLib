@@ -8,6 +8,7 @@
     + [Fetching Data from DB](#fetching-data-from-db)
       - [1. Using Cursor (recommended)](#1-using-cursor--recommended-)
       - [2. Using fetch()](#2-using-fetch--)
+    + [Writing BLOB](#writing-blob)
   * [Examples](#examples)
   * [Future Updates](#future-updates)
 
