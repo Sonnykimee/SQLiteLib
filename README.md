@@ -177,6 +177,7 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 <List<Object>> sonny = db.fetchRow(0);
 ```
 
+---
 ### Writing BLOB ###
 BLOB (Binary Large Object) types can contain large amount of data such as images. As of version 0.2.0, SQLiteLib only has a temporary solution to write BLOB.
 
