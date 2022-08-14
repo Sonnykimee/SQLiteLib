@@ -7,6 +7,7 @@ Most Minecraft servers store their user data on a single YAML file or use MySQL 
 
 I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) which is now out of support. This plugin statically links SQLite JDBC Driver 3.39.2.0 written by xerial (https://github.com/xerial/sqlite-jdbc).
 
+----
 **Do I need to install SQLite before using this plugin?**
 
 ***No. You don't.***
