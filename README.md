@@ -179,7 +179,7 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 ## Examples ##
 Basics: [example_01](/examples/example_01.md)
 
-A simple plugin I wrote to help your understanding: [SQLiteLibTester](/examples/TesterPlugin)
+A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
 
 ## Future Updates
 1. Image -> BLOB write support (now partially implemented. See [SQLiteLibTester](/examples/TesterPlugin))
