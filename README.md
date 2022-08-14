@@ -184,9 +184,8 @@ Some examples are written in TriggerReactor script language since that was my in
 ***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
 
 ---
-Basics: [example_01](/examples/example_01.md)
-
-A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
+* Basics: [example_01](/examples/example_01.md)
+* A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
 
 ## Future Updates
 1. Image -> BLOB write support (now partially implemented)
