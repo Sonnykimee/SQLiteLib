@@ -8,11 +8,12 @@
     + [Fetching Data from DB](#fetching-data-from-db)
       - [1. Using Cursor (recommended)](#1-using-cursor--recommended-)
       - [2. Using fetch()](#2-using-fetch--)
+    + [Writing BLOB](#writing-blob)
   * [Examples](#examples)
   * [Future Updates](#future-updates)
 
 # SQLiteLib
-<img src="images\sqlitelib_logo.png" width=50% height=50%>
+<img src="images\sqlitelib_logo.png">
 
 SQLiteLib is a library plugin that provides an easy way to use the SQLite database on Minecraft servers.
 
@@ -176,10 +177,16 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 <List<Object>> sonny = db.fetchRow(0);
 ```
 
+---
+### Writing BLOB ###
+BLOB (Binary Large Object) types can contain large amount of data such as images. As of version 0.2.0, SQLiteLib only has a temporary solution to write BLOB.
+
+Check out a simple plugin I wrote to learn how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
+	
 ## Examples ##
 Basics: [example_01](/examples/example_01.md)
 
-A simple plugin I wrote to help your understanding: [SQLiteLibTester](/examples/TesterPlugin)
+A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
 
 ## Future Updates
 1. Image -> BLOB write support (now partially implemented)
