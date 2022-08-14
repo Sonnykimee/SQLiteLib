@@ -1,0 +1,2 @@
+1. The source code of SQLiteLibTester is free to use, modify, study, redistribute both original and derivative work.
+2. SQLiteLibTester.jar file inherits GNU GPLv3 from Spigot API. See [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html).

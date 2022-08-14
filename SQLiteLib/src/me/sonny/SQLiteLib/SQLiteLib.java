@@ -216,11 +216,11 @@ public class SQLiteLib extends JavaPlugin {
 	}
 	
 	/**
-	 * Converts the given binary file into a byte array.
+	 * Converts the binary file located in the given path into a byte array.
 	 * 
 	 * If the file was not found, or inaccessible, returns null.
 	 * 
-	 * @param fileName the path of the file location.
+	 * @param fileName The location of the file to convert.
 	 * @return Byte array of the given file.
 	 */
 	public byte[] fileToBytes(String fileName) {
@@ -251,6 +251,45 @@ public class SQLiteLib extends JavaPlugin {
 		} else {
 			// Could not find or access the file
 			PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not find the file: " + fileName);
+		}
+		
+		return result;
+	}
+	/**
+	 * Converts the given binary file into a byte array.
+	 * 
+	 * If the file was not found, or inaccessible, returns null.
+	 * 
+	 * @param file The file to convert.
+	 * @return Byte array of the given file.
+	 */
+	public byte[] fileToBytes(File file) {
+		byte[] result = null;
+		
+		if (file.exists()) {
+			// If the file exists
+			try {
+				FileInputStream fis = new FileInputStream(file);
+				ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				byte[] buffer = new byte[1024];
+				
+				// Read the file input stream and writes to the byte array output stream
+				for (int len; (len = fis.read(buffer)) != -1;) {
+					bos.write(buffer, 0, len);
+		        }
+				
+				// Convert to byte array
+				result = bos.toByteArray();
+				
+				// Close streams
+				fis.close();
+				bos.close();
+			} catch (Exception e) {
+				PLUGIN.getLogger().log(Level.SEVERE, "Error: " + e.getMessage());
+			}
+		} else {
+			// Could not find or access the file
+			PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not find the file: " + file.getName());
 		}
 		
 		return result;

@@ -1,0 +1,10 @@
+main: me.sonny.SQLiteLibTester.TesterMain
+name: SQLiteLibTester
+version: 1.0.0
+description: A tester plugin for SQLiteLib.
+author: Sonny Kim
+depend: [SQLiteLib]
+
+commands:
+  sqltester:
+    description: See SQLiteLib testing commands.
