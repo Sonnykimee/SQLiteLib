@@ -1,5 +1,4 @@
-**Still setting up**
-
+**Contents**
 - [SQLiteLib](#sqlitelib)
   * [Usage](#usage)
     + [Linking Your Plugin Project with SQLiteLib](#linking-your-plugin-project-with-sqlitelib)
