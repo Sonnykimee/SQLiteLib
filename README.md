@@ -60,6 +60,7 @@ Once, your project is properly linked to SQLiteLib, you can access its classes a
 ```java
 if (sqliteLib != null) {
     SQLite db = sqliteLib.DB(); // Getting the default SQLite DB instance.
+    db = sqliteLib.DB("default"); // You can also get the deafult DB instance using "default" as parameter.
     
     // Create a connection to a DB file that is located at "<root>/plugins/TriggerReactor/SavedData/DB/test.db".
     // The <root> is the location of your bukkit jar file.
