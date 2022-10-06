@@ -40,7 +40,7 @@ public class TesterMain extends JavaPlugin {
 				// Creates a new DB file mydb.db inside plugins folder.
 				if (args[0].equalsIgnoreCase("0")) {
 					// Create a new SQLite DB using createDB(dbName).
-					SQLite db = sqliteLib.createDB("MyDB");
+					SQLite db = sqliteLib.createDB("mydb");
 					
 					db.connect( "plugins/mydb.db" );
 						
@@ -51,7 +51,7 @@ public class TesterMain extends JavaPlugin {
 				// Creates a new Table inside the new DB and inserts few values
 				if (args[0].equalsIgnoreCase("1")) {
 					// You can always use DB(dbName) to get the instance of the created DB.
-					SQLite db = sqliteLib.DB("MyDB");
+					SQLite db = sqliteLib.DB("mydb");
 					
 					String statement = """
 										CREATE TABLE IF NOT EXISTS PERSON (
@@ -84,7 +84,7 @@ public class TesterMain extends JavaPlugin {
 				if (args[0].equalsIgnoreCase("2")) {
 					try {
 						// You can always use DB(dbName) to get the instance of the created DB.
-						SQLite db = sqliteLib.DB("MyDB");
+						SQLite db = sqliteLib.DB("mydb");
 						
 						// Get Connection instance. This is different from connect() method.
 						Connection conn = db.connection();
@@ -110,7 +110,7 @@ public class TesterMain extends JavaPlugin {
 				
 				// Display items in the table
 				if (args[0].equalsIgnoreCase("3")) {
-					SQLite db = sqliteLib.DB("MyDB");
+					SQLite db = sqliteLib.DB("mydb");
 					
 					if (db.execute("SELECT PID, NAME, AGE FROM PERSON")) {
 						Cursor cur = db.cursor();

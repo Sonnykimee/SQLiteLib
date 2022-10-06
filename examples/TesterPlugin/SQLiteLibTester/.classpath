@@ -6,12 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Bukkits/spigot-api-1.19-R0.1-SNAPSHOT-shaded.jar">
+	<classpathentry kind="lib" path="C:/Bukkits/spigot-api-1.19.2-R0.1-SNAPSHOT-shaded.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Bukkits/SQLiteLib.jar">
+	<classpathentry kind="lib" path="D:/Users/Sonny Kim/Documents/06. Game/Minecraft/YouTubeServer_1_19_2/plugins/SQLiteLib.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

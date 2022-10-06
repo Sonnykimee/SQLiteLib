@@ -30,6 +30,8 @@ public class SQLiteLib extends JavaPlugin {
 		defaultDb = new SQLite();
 		databases = new HashMap<>();
 		
+		databases.put("default", defaultDb);
+		
 		Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "SQLiteLib has been enabled!");
 	}
 	
@@ -166,6 +168,7 @@ public class SQLiteLib extends JavaPlugin {
 	
 	/**
 	 * Get the SQLite DB instance inside databases HashMap that has the given name.
+	 * All DB names are saved as lower cases.
 	 * @see createDB(dbName).
 	 * 
 	 * If no DB matches, returns null.
@@ -174,6 +177,7 @@ public class SQLiteLib extends JavaPlugin {
 	 * @return Returns a database that has the matching name.
 	 */
 	public SQLite DB(String dbName) {
+		dbName = dbName.toLowerCase();
 		if (databases.containsKey(dbName)) {
 			return databases.get(dbName);
 		}
@@ -184,7 +188,7 @@ public class SQLiteLib extends JavaPlugin {
 	}
 	
 	/**
-	 * Creates a new SQLite database instance in the databases HashMap that has the given name.
+	 * Creates a new SQLite database instance in the databases HashMap that has the given name in lower cases.
 	 * 
 	 * The created database instanced will be stored inside databases HashMap.
 	 * Use DB(dbName) method to get the DB instance.
@@ -193,6 +197,13 @@ public class SQLiteLib extends JavaPlugin {
 	 * @return A newly created SQLite database instance.
 	 */
 	public SQLite createDB(String dbName) {
+		dbName = dbName.toLowerCase();
+		
+		// If there already is a DB with the given name, then close the previous DB connection.
+		if (databases.containsKey(dbName)) {
+			databases.get(dbName).close(); 
+		}
+		
 		SQLite db = new SQLite();
 		
 		databases.put(dbName, db); // Store the SQLite DB instance inside the HashMap.
