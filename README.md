@@ -75,14 +75,15 @@ To create a connection to a DB file, use `connect(fileName)`. **fileName** param
 You can create more than just the default DB using below code:
 ```java
 // Create a new SQLite DB using createDB(dbName).
-SQLite myNewDB = sqliteLib.createDB("MyNewDB");
+// All DB names are saved in lowercases. Be careful not to overwrite the previous DB connection.
+SQLite myNewDB = sqliteLib.createDB("mynewdb");
 					
 // You can always use DB(dbName) to get the instance of the created DB.
-myNewDB = sqliteLib.DB("MyNewDB");
+myNewDB = sqliteLib.DB("mynewdb");
 					
 myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```
-**dbName** parameter is a String, and you can give any name to it. However, be careful not to use a duplicating name, the new one will replace the pre-existing one.
+**dbName** parameter is a String, and you can give any name to it. However, the name will be saved as all lowercases. Be careful not to assign a duplicating name, the new one will replace the pre-existing one.
 
 ---
 ### Executing a Statement ###
