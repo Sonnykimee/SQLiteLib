@@ -262,14 +262,32 @@ public class SQLite {
 			position = -1;
 		}
 		
+		/**
+		 * Returns the number of rows of fetched data
+		 * @return Returns the number of rows of fetched data
+		 */
+		public int size() {
+			return data.size();
+		}
+		
+		/**
+		 * Move the position pivot to -1
+		 */
 		public void beforeFirst() {
 			position = -1;
 		}
 		
+		/**
+		 * Move the position pivot to the size number of the fetched data
+		 */
 		public void afterLast() {
 			position = data.size();
 		}
 		
+		/**
+		 * Move pivot to the next position.
+		 * @return If there is next, returns true. Otherwise false.
+		 */
 		public boolean next() {
 			if (data.size() > 0 && position < data.size()-1) {
 				position++;
@@ -279,6 +297,10 @@ public class SQLite {
 			return false;
 		}
 		
+		/**
+		 * Move pivot to the previous position.
+		 * @return If there is previous, returns true. Otherwise false.
+		 */
 		public boolean previous() {
 			if (data.size() > 0 && position > 1) {
 				position--;
