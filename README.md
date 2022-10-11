@@ -34,7 +34,8 @@ If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](h
 
 ## Usage
 ### Commands ###
-**Note that the SQLiteLib is meant to be linked by other plugins or scripts. Commands are only meant to offer some convinience.**
+**Note that the SQLiteLib is meant to be linked by other plugins or scripts. Commands are only meant to provide some convinience.**
+
 /sqlite - see /sqlite commands
 
 /sqlite connect <path> - Establish a DB connection to the DB file that is located in the path. The root of the path is where your server JAR file is located. If no file exists, then a new DB file will be created at that location.
