@@ -1,5 +1,7 @@
 - [SQLiteLib](#sqlitelib)
   * [Usage](#usage)
+    + [Commands](#commands)
+    + [Permission](#permission)
     + [Linking Your Plugin Project with SQLiteLib](#linking-your-plugin-project-with-sqlitelib)
     + [Accessing SQLiteLib instance](#accessing-sqlitelib-instance)
     + [Accessing default DB and Creating a Connection](#accessing-default-db-and-creating-a-connection)
