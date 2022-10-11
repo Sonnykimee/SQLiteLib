@@ -133,7 +133,7 @@ if (db.execute( "SELECT * FROM PERSON" )) {
     Cursor cur = db.cursor(); // Get Cursor instance
     
     // Iterate through the read data
-    while(cur.next()) {
+    while(cur.next()) { // for (i=0; i<cur.size(); i++) { also works!
     	// Recommended: use the field name of the column as parameter to get the stored value.
     	Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString("NAME") + ", Age: " + cur.getInt("AGE"));
 	
