@@ -37,8 +37,6 @@ public class SQLiteLib extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
-		defaultDb.close(); // Close the default DB.
-		
 		// Close every DB inside the databases HashMap
 		for(Map.Entry<String, SQLite> entry : databases.entrySet()) {
 		    entry.getValue().close();

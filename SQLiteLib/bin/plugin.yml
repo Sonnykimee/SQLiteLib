@@ -10,5 +10,5 @@ commands:
     
 permissions:
   sqlite.use:
-    description: Use sqlite command.
+    description: Use sqlite commands.
     default: op
