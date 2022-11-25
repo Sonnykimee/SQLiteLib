@@ -19,10 +19,15 @@ public class SQLite {
 	// Cursor provides a convenient way to get values from the read data.
 	private Cursor cursor;
 	
+	// private String readyStatement;
+	// private List<String> readyStatementPos;
+	
 	// Constructor
 	public SQLite() {
 		data = new ArrayList<>();
 		cursor = null;
+		// readyStatement = "";
+		// readyStatementPos = new ArrayList<>();
 	}
 	
 	/**
@@ -179,6 +184,51 @@ public class SQLite {
 		
 		return false;
 	}
+	
+	/*
+	 * DO NOT USE YET
+	 */
+	/**
+	 * Executes ready statement. Use ready()
+	 * @return Returns true if the statement was successfully executed. Otherwise false.
+	 */
+	/*
+	public boolean execute() {
+		return execute(readyStatement);
+	}
+	*/
+	
+	/**
+	 * Prepare a statement to execute by using executeReady*()
+	 * @param statement
+	 */
+	/*
+	public void ready(String statement) {
+		if (!statement.contains("?")) {
+			readyStatement = statement;
+			return;
+		}
+		
+		int count = 0;
+		int[] start = {};
+		int[] end = {};
+		
+		for (int i=0; i<statement.length(); i++) {
+			if (statement.charAt(i) == '\'') {
+				if (start.length == end.length) {
+					start[count] = i;
+				} else if (start.length > end.length) {
+					end[count] = i; 
+					count++;
+				}
+			}
+		}
+		
+		for (int i=0; i<statement.length(); i++) {
+			
+		}
+	}
+	*/
 	
 	/**
 	 * Close current DB connection.
