@@ -17,8 +17,7 @@
 # SQLiteLib
 <img src="images\sqlitelib_logo.png">
 
-Example YouTube Video: (https://youtu.be/PtyPM6s7s4Q)
-
+Example YouTube Video: https://youtu.be/PtyPM6s7s4Q
 SQLiteLib is a library plugin that provides an easy way to use the SQLite database on Minecraft servers.
 
 Most Minecraft servers store their user data on a single YAML file or use MySQL as their DBMS. However, storing data on a YAML file is unsafe and performance inefficient, and MySQL might be a bit overwhelming to install and set up configurations. If you are a Minecraft server admin who is looking for a fast, light, and zero-configuration database, SQLite is a good solution. SQLiteLib is a Bukkit plugin that helps you to easily use SQLite databases on your Minecraft server.
