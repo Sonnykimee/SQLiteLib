@@ -121,6 +121,25 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
+As of 0.3.0 version, you can use a ReadyStatement. However, I am still working on this feature.
+```java
+// Set up a ReadyStatement
+ReadyStatement statement = new ReadyStatement("INSERT OR REPLACE INTO PERSON VALUES (?, ?)");
+statement.set("'Rosie'"); // replace the first ? to 'Rosie'. Make sure to surround by '' when the value is a String.
+statement.set("15"); // replace the second ? to 15
+
+// Load the ReadyStatement
+db.ready(statement);
+
+// Execute the ReadyStatement
+if (db.executeReady(statement)) {
+    // Successfully executed the statement
+} else {
+    // Failed to execute the statement
+    // ...
+}
+```
+
 ---
 ### Fetching Data from DB ###
 There are two ways to fetch data: Using `Cursor` class, or using `fetch()` method.
