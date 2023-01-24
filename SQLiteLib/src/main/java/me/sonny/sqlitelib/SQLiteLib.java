@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -52,90 +53,66 @@ public class SQLiteLib extends JavaPlugin {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender.hasPermission("sqlite.use")) {
-            //
-            // "/sqlite" command
-            //
-            if (label.equalsIgnoreCase("sqlite")) {
-                if (args.length == 0) {
-                    //
-                    // No argument
-                    //
+        // Check permissions
+        if (!sender.hasPermission("sqlite.use")) {
+            sender.sendMessage(ChatColor.RED + "[SQLiteLib] You do not have permission to execute this command!");
+            return false;
+        }
+
+        // Check command label
+        if (!label.equalsIgnoreCase("sqlite")) {
+            return false;
+        }
+
+        if (args.length == 0) {
+            showCommands(sender);
+        } else if (args.length == 1) {
+            switch (args[0].toLowerCase()) {
+                case "close":
+                    if (defaultDb.close()) {
+                        if (sender instanceof Player) {
+                            sender.sendMessage("[SQLiteLib] DB connection closed!");
+                        }
+                    }
+                    return true;
+                case "check":
+                    try {
+                        if (defaultDb.connection() == null) {
+                            sender.sendMessage("[SQLiteLib] DB connection is NULL!");
+                        } else if (defaultDb.connection().isClosed()) {
+                            sender.sendMessage("[SQLiteLib] DB connection is closed!");
+                        } else {
+                            sender.sendMessage("[SQLiteLib] DB connection is open!");
+                        }
+                    } catch (SQLException e) {
+                        sender.sendMessage("[SQLiteLib] Error: Failed to check the DB status! Message: " + e.getMessage());
+                    }
+                    return true;
+                default:
                     showCommands(sender);
-
-                } else if (args.length == 1) {
-                    //
-                    // 1 argument
-                    //
-                    if (args[0].equalsIgnoreCase("close")) {
-                        if (defaultDb.close()) {
-                            if (sender instanceof Player) {
-                                sender.sendMessage("[SQLiteLib] DB connection closed!");
-                            }
-                        }
-                        return true;
-                    } else if (args[0].equalsIgnoreCase("check")) {
-                        try {
-                            if (defaultDb.connection() == null) {
-                                sender.sendMessage("[SQLiteLib] DB connection is NULL!");
-                            } else if (defaultDb.connection().isClosed()) {
-                                sender.sendMessage("[SQLiteLib] DB connection is closed!");
-                            } else {
-                                sender.sendMessage("[SQLiteLib] DB connection is open!");
-                            }
-                        } catch (SQLException e) {
-                            sender.sendMessage("[SQLiteLib] Error: Failed to check the DB status! Message: " + e.getMessage());
-                        }
-                        return true;
-                    }
-
-                } else {
-                    //
-                    // More than 1 argument
-                    //
-                    if (args[0].equalsIgnoreCase("connect")) {
-                        String url = "";
-                        for (int i=1; i<args.length; i++) {
-                            url += args[i] + " ";
-                        }
-                        url.trim();
-
-                        if (defaultDb.connect(url)) {
-                            if (sender instanceof Player) {
-                                sender.sendMessage("[SQLiteLib] DB connection established: " + url);
-                            }
-                        }
-
-                        return true;
-                    } else if (args[0].equalsIgnoreCase("execute")) {
-                        String statement = "";
-
-                        for (int i=1; i<args.length; i++) {
-                            statement += args[i] + " ";
-                        }
-
-                        statement.trim(); // path name cannot contain spaces at the end of the name.
-
-                        if (defaultDb.execute(statement)) {
-                            if (sender instanceof Player) {
-                                sender.sendMessage("[SQLiteLib] Query statement executed!");
-                            }
-                        }
-
-                        return true;
-                    } else {
-                        //
-                        // No matching argument
-                        //
-                        showCommands(sender);
-                    }
-                }
+                    return true;
             }
         } else {
-            //
-            // No permission
-            //
-            sender.sendMessage(ChatColor.RED + "[SQLiteLib] You do not have permission to execute this command!");
+            String statement = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+            switch (args[0].toLowerCase()) {
+                case "connect":
+                    if (defaultDb.connect(statement)) {
+                        if (sender instanceof Player) {
+                            sender.sendMessage("[SQLiteLib] DB connection established: " + statement);
+                        }
+                    }
+                    return true;
+                case "execute":
+                    if (defaultDb.execute(statement)) {
+                        if (sender instanceof Player) {
+                            sender.sendMessage("[SQLiteLib] Query statement executed!");
+                        }
+                    }
+                    return true;
+                default:
+                    showCommands(sender);
+                    return true;
+            }
         }
 
         return false;

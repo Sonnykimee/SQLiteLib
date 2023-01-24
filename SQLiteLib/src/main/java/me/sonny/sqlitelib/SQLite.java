@@ -19,15 +19,13 @@ public class SQLite {
     // Cursor provides a convenient way to get values from the read data.
     private Cursor cursor;
 
-    // private String readyStatement;
-    // private List<String> readyStatementPos;
+    private ReadyStatement readyStatement;
 
     // Constructor
     public SQLite() {
         data = new ArrayList<>();
         cursor = null;
-        // readyStatement = "";
-        // readyStatementPos = new ArrayList<>();
+        readyStatement = null;
     }
 
     /**
@@ -124,20 +122,19 @@ public class SQLite {
     public boolean execute(String statement) {
         data.clear(); // Empty previously fetched data
 
-        PreparedStatement ps;
-        ResultSet rs;
-        ResultSetMetaData rsmd;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ResultSetMetaData rsmd = null;
 
         List<List<Object>> cursorData = new ArrayList<>();
         List<String> columnNames = new ArrayList<>();
 
-        List<Object> row;
-
         try {
             if (conn != null && !conn.isClosed()) {
                 ps = conn.prepareStatement(statement);
+                boolean isResultSet = ps.execute();
 
-                if (ps.execute()) {
+                if (isResultSet) {
                     // DQL command; The first result is a ResultSet
                     rs = ps.getResultSet();
                     rsmd = rs.getMetaData();
@@ -151,7 +148,7 @@ public class SQLite {
 
                     // Copy data
                     while (rs.next()) {
-                        row = new ArrayList<>(); // Empty row
+                        List<Object> row = new ArrayList<>(); // Empty row
 
                         for (int i=0; i<numCol; i++) {
                             row.add(rs.getObject(i+1)); // ResultSet column index starts at 1
@@ -167,68 +164,36 @@ public class SQLite {
                     // DDL or DML  command; The first result has no result
                 }
 
-                // Close prepare statement
-                if (ps != null && !ps.isClosed()) {
-                    ps.close();
-                }
-
                 SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "Query statement executed!");
-
                 return true;
             } else {
                 SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "DB Connection is closed or does not exist!");
             }
         } catch (SQLException e) {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not execute the query statement! " + e.getClass().getName() + ": " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null && !rs.isClosed()) {
+                    rs.close();
+                }
+                if (ps != null && !ps.isClosed()) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not close statement or result set. " + e.getClass().getName() + ": " + e.getMessage());
+            }
         }
 
         return false;
     }
 
-    /*
-     * DO NOT USE YET
-     */
-    /**
-     * Executes ready statement. Use ready()
-     * @return Returns true if the statement was successfully executed. Otherwise false.
-     */
-	/*
-	public boolean execute() {
-		return execute(readyStatement);
+    public void ready(ReadyStatement statement) {
+        this.readyStatement = statement;
+    }
+
+	public boolean executeReady() {
+		return execute(readyStatement.toString());
 	}
-	*/
-
-    /**
-     * Prepare a statement to execute by using executeReady*()
-     * @param statement
-     */
-	/*
-	public void ready(String statement) {
-		if (!statement.contains("?")) {
-			readyStatement = statement;
-			return;
-		}
-
-		int count = 0;
-		int[] start = {};
-		int[] end = {};
-
-		for (int i=0; i<statement.length(); i++) {
-			if (statement.charAt(i) == '\'') {
-				if (start.length == end.length) {
-					start[count] = i;
-				} else if (start.length > end.length) {
-					end[count] = i;
-					count++;
-				}
-			}
-		}
-
-		for (int i=0; i<statement.length(); i++) {
-
-		}
-	}
-	*/
 
     /**
      * Close current DB connection.
@@ -241,7 +206,6 @@ public class SQLite {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
-
                 SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "DB connection closed!");
 
                 return true;
