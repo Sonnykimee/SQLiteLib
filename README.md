@@ -241,4 +241,3 @@ Some examples are written in TriggerReactor script language since that was my in
 ## Future Updates
 1. Image -> BLOB write support (now partially implemented)
 2. Configurations
-3. Statement class (wrapper class of PreparedStatement) that allows users to use setString(index, value) method.
