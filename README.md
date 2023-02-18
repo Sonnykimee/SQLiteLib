@@ -96,7 +96,7 @@ To create a connection to a DB file, use `connect(fileName)`. **fileName** param
 You can create more than just the default DB using below code:
 ```java
 // Create a new SQLite DB using createDB(dbName).
-// All DB names are saved in lowercases. Be careful not to overwrite the previous DB connection.
+// All DB names are saved in uppercases. Be careful not to overwrite the previous DB connection.
 SQLite myNewDB = sqliteLib.createDB("mynewdb");
 					
 // You can always use DB(dbName) to get the instance of the created DB.
@@ -104,7 +104,7 @@ myNewDB = sqliteLib.DB("mynewdb");
 					
 myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 ```
-**dbName** parameter is a String, and you can give any name to it. However, the name will be saved as all lowercases. Be careful not to assign a duplicating name, the new one will replace the pre-existing one.
+**dbName** parameter is a String, and you can give any name to it. However, the name will be saved as all uppercases. Be careful not to assign a duplicating name, the new one will replace the pre-existing one.
 
 ---
 ### Executing a Statement ###
@@ -162,6 +162,16 @@ if (db.execute( "SELECT * FROM PERSON" )) {
 	// Bukkit.getConsoleSender().sendMessage("Name: " + cur.getString(0) + ", Age: " + cur.getInt(1));
     }
 }
+
+// You can also pass a custom data type.
+if (db.execute( "SELECT * FROM PERSON WHERE NAME = 'Tonny'" )) {
+    Cursor cur = db.cursor();
+    
+    cur.first(); // we know that there will be only one row for the result. So just go to the first row.
+
+    int age = cur.getValue("AGE", Integer.class); // Get the value in AGE column as an Integer.
+    Bukkit.getConsoleSender().sendMessage("Tonny's age: " + age);
+}
 ```
 <p>
 Result:<br />
@@ -174,7 +184,7 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-Cursor also contains `getFloat(column)`, `getDouble(column)`, `getString(column)`, and `getBool(column)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
+Cursor also contains `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
 
 #### 2. Using fetch() ####
 `fetch()` method returns the data as List<List<Object>>.
@@ -204,7 +214,7 @@ Tonny's age: 25<br />
 Ronny's age: 31<br />
 </p>
 
-FYI, you should not assume that the data will always be ordered unless you specify. For instance, returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong. Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data.
+You should not assume that the data will always be ordered unless you specify. For instance, returning any of Sonny-Tonny-Ronny, Tonny-Sonny-Ronny, Ronny-Tonny-Sonny for "SELECT * FROM PERSON" statement is practically not wrong. Read about [ORDER BY](https://www.sqlitetutorial.net/sqlite-order-by/) SQL command to learn how to specify the order of the data.
 
 You can also get a specific row using `fetchRow(index)`:
 ```java

@@ -26,8 +26,7 @@ public class ReadyStatement {
         }
     }
 
-    @Override
-    public String toString() {
+    public String getStatement() {
         return statement;
     }
 }

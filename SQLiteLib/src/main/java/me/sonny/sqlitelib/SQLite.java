@@ -12,9 +12,9 @@ import java.util.logging.Level;
 
 public class SQLite {
 
-    private Connection conn; // DB connection.
+    private Connection conn; // Database connection
 
-    private List<List<Object>> data;
+    private List<List<Object>> data; // Fetched data from DB will be stored here first.
 
     // Cursor provides a convenient way to get values from the read data.
     private Cursor cursor;
@@ -45,7 +45,7 @@ public class SQLite {
             Class.forName("org.sqlite.JDBC");
 
             try {
-                // If a previous DB connection is already open, then close it.
+                // If there is a DB connection that is already open, then close.
                 if (conn != null && !conn.isClosed()) {
                     close();
                 }
@@ -54,16 +54,15 @@ public class SQLite {
                 // if the DB file does not exist, it will be automatically created.
                 conn = DriverManager.getConnection("jdbc:sqlite:" + fileName);
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "DB connection established: " + fileName);
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName);
 
                 return true;
             } catch (SQLException e) {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Could not open the DB! " + e.getClass().getName() + ": " + e.getMessage());
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_FAILURE + ", Error Message: " + e.getMessage());
             }
         } catch (ClassNotFoundException e) {
-            // Failed to find or load the JDBC.
-            // This will almost never happen since the JDBC is statically linked.
-            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Failed to load the JDBC! " + e.getClass().getName() + ": " + e.getMessage());
+            // Failed to find or load the JDBC. This will almost never happen since the JDBC is statically linked.
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.NO_JDBC + ", Error Message: " + e.getMessage());
         }
 
         return false;
@@ -97,16 +96,15 @@ public class SQLite {
                 // if the DB file does not exist, it will be automatically created.
                 conn = DriverManager.getConnection("jdbc:sqlite:" + fileName, username, password);
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "DB connection established: " + fileName);
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName);
 
                 return true;
             } catch (SQLException e) {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Could not open the DB! " + e.getClass().getName() + ": " + e.getMessage());
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_FAILURE + ", Error Message: " + e.getMessage());
             }
         } catch (ClassNotFoundException e) {
-            // Failed to find or load the JDBC.
-            // This will almost never happen since the JDBC is statically linked.
-            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Failed to load the JDBC! " + e.getClass().getName() + ": " + e.getMessage());
+            // Failed to find or load the JDBC. This will almost never happen since the JDBC is statically linked.
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.NO_JDBC + ", Error Message: " + e.getMessage());
         }
 
         return false;
@@ -117,7 +115,7 @@ public class SQLite {
      * then save the fetched data in both List<List<Object>> data and Cursor.
      *
      * @param {String} statement The query statement to execute
-     * @return Returns true if the statement was successfully executed. Otherwise false.
+     * @return Returns true if the statement was successfully executed. Otherwise, false.
      */
     public boolean execute(String statement) {
         data.clear(); // Empty previously fetched data
@@ -164,13 +162,13 @@ public class SQLite {
                     // DDL or DML  command; The first result has no result
                 }
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "Query statement executed!");
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.EXECUTE_SUCCESS);
                 return true;
             } else {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "DB Connection is closed or does not exist!");
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
             }
         } catch (SQLException e) {
-            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not execute the query statement! " + e.getClass().getName() + ": " + e.getMessage());
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.EXECUTE_FAILURE + ", Error Message: " + e.getMessage());
         } finally {
             try {
                 if (rs != null && !rs.isClosed()) {
@@ -180,7 +178,7 @@ public class SQLite {
                     ps.close();
                 }
             } catch (SQLException e) {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Error: Could not close statement or result set. " + e.getClass().getName() + ": " + e.getMessage());
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.STATEMENT_RESULTSET_CLOSE_FAILURE + ", Error Message: " + e.getMessage());
             }
         }
 
@@ -192,7 +190,7 @@ public class SQLite {
     }
 
 	public boolean executeReady() {
-		return execute(readyStatement.toString());
+		return execute(readyStatement.getStatement());
 	}
 
     /**
@@ -200,20 +198,20 @@ public class SQLite {
      *
      * This will release the DB file from "File in Use" status and allow to delete the DB file.
      *
-     * @return true if the connection had been successfully closed. Otherwise false.
+     * @return true if the connection had been successfully closed. Otherwise, false.
      */
     public boolean close() {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, "DB connection closed!");
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_CLOSE_SUCCESS);
 
                 return true;
             } else {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "DB Connection is already closed or does not exist!");
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
             }
         } catch (SQLException e) {
-            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, "Could not close the connection! " + e.getClass().getName() + ": " + e.getMessage());
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE + ", Error Message: " + e.getMessage());
         }
 
         return false;
@@ -255,170 +253,5 @@ public class SQLite {
      */
     public Cursor cursor() {
         return cursor;
-    }
-
-
-    /*
-     * Cursor class provides an easy way to fetch data without having to parse Object every time.
-     * Cursor will also have a feature to get data using column name String instead of index number.
-     */
-    public class Cursor {
-
-        private int position;
-
-        private List<List<Object>> data;
-
-        private List<String> columnNames;
-
-        private Cursor(List<List<Object>> data, List<String> columnNames) {
-            this.data = data;
-            this.columnNames = columnNames;
-            position = -1;
-        }
-
-        /**
-         * Returns the number of rows of fetched data
-         * @return Returns the number of rows of fetched data
-         */
-        public int size() {
-            return data.size();
-        }
-
-        /**
-         * Move the position pivot to -1
-         */
-        public void beforeFirst() {
-            position = -1;
-        }
-
-        /**
-         * Move the position pivot to the size number of the fetched data
-         */
-        public void afterLast() {
-            position = data.size();
-        }
-
-        /**
-         * Move pivot to the next position.
-         * @return If there is next, returns true. Otherwise false.
-         */
-        public boolean next() {
-            if (data.size() > 0 && position < data.size()-1) {
-                position++;
-                return true;
-            }
-
-            return false;
-        }
-
-        /**
-         * Move pivot to the previous position.
-         * @return If there is previous, returns true. Otherwise false.
-         */
-        public boolean previous() {
-            if (data.size() > 0 && position > 1) {
-                position--;
-                return true;
-            }
-
-            return false;
-        }
-
-        public boolean first() {
-            if (data.size() > 0) {
-                position = 0;
-                return true;
-            }
-
-            return false;
-        }
-
-        public boolean last() {
-            if (data.size() > 0) {
-                position = data.size()-1;
-                return true;
-            }
-
-            return false;
-        }
-
-        public Integer getInt(int column) {
-            Integer value = (Integer) data.get(position).get(column);
-
-            return value;
-        }
-        public Integer getInt(String column) {
-            column = column.toUpperCase();
-            Integer value = (Integer) data.get(position).get(columnNames.indexOf(column));
-
-            return value;
-        }
-
-        public Float getFloat(int column) {
-            Float value = (Float) data.get(position).get(column);
-
-            return value;
-        }
-        public Float getFloat(String column) {
-            column = column.toUpperCase();
-            Float value = (Float) data.get(position).get(columnNames.indexOf(column));
-
-            return value;
-        }
-
-        // Note that SQLite does not natively supports double-precision
-        public Double getDouble(int column) {
-            Double value = (Double) data.get(position).get(column);
-
-            return value;
-        }
-        public Double getDouble(String column) {
-            column = column.toUpperCase();
-            Double value = (Double) data.get(position).get(columnNames.indexOf(column));
-
-            return value;
-        }
-
-        // Note that SQLite does not natively supports Boolean.
-        // In SQLite, Boolean is an integer. True is a substitute for 1 and False for 0.
-        public Boolean getBool(int column) throws Exception {
-            Integer value = (Integer) data.get(position).get(column);
-
-            if (value == null) {
-                return null;
-            } else if (value == 0) {
-                return false;
-            } else if (value == 1) {
-                return true;
-            } else {
-                throw new Exception("The value is not a Boolean!");
-            }
-        }
-        public Boolean getBool(String column) throws Exception {
-            column = column.toUpperCase();
-            Integer value = (Integer) data.get(position).get(columnNames.indexOf(column));
-
-            if (value == null) {
-                return null;
-            } else if (value == 0) {
-                return false;
-            } else if (value == 1) {
-                return true;
-            } else {
-                throw new Exception("The value is not a Boolean!");
-            }
-        }
-
-        public String getString(int column) {
-            String value = data.get(position).get(column).toString();
-
-            return value;
-        }
-        public String getString(String column) {
-            column = column.toUpperCase();
-            String value = data.get(position).get(columnNames.indexOf(column)).toString();
-
-            return value;
-        }
     }
 }
