@@ -170,7 +170,7 @@ if (db.execute( "SELECT * FROM PERSON WHERE NAME = 'Tonny'" )) {
     cur.first(); // we know that there will be only one row for the result. So just go to the first row.
 
     int age = cur.getValue("AGE", Integer.class); // Get the value in AGE column as an Integer.
-    Bukkit.getConsoleSender().sendMessage("Tonny's age: " + age);
+    Bukkit.getConsoleSender().sendMessage("\nTonny's age: " + age);
 }
 ```
 <p>
@@ -178,6 +178,8 @@ Result:<br />
 Name: Sonny, Age: 13<br />
 Name: Tonny, Age: 25<br />
 Name: Ronny, Age: 31<br />
+
+Tonny's age: 25<br />
 </p>
 
 If there is a next row, `next()` method moves the position of the pointer to the next row, and returns **true**. Otherwise **false**. The position starts at -1. You can reset the position of the pointer using `beforeFirst()` method which will move it back to -1.
