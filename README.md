@@ -121,24 +121,25 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
-As of 0.3.0 version, you can use a ReadyStatement. However, I am still working on this feature.
+You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from the possible [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection).
 ```java
 // Set up a ReadyStatement
-ReadyStatement statement = new ReadyStatement("INSERT OR REPLACE INTO PERSON VALUES (?, ?)");
-statement.set("'Rosie'"); // replace the first ? to 'Rosie'. Make sure to surround by '' when the value is a String.
-statement.set("15"); // replace the second ? to 15
+ReadyStatement statement = db.readyStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
+statement.setString(1, "Chrissy"); // replace the first ? to 'Rosie'. Note that the parameter index number starts from 1.
+statement.setInt(29); // replace the second ? to 29
 
 // Load the ReadyStatement
 db.ready(statement);
 
 // Execute the ReadyStatement
-if (db.executeReady()) {
+if (db.executeReadyStatement()) {
     // Successfully executed the statement
 } else {
     // Failed to execute the statement
     // ...
 }
 ```
+ReadyStatement contains `setBoolean(indexParameter, value)`, `setInt(indexParameter, value)`, `setLong(indexParameter, value)`, `setFloat(indexParameter, value)`, `setDouble(indexParameter, value)`, and `setString(indexParameter, value)` methods.
 
 ---
 ### Fetching Data from DB ###
@@ -187,7 +188,7 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-Cursor also contains `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods. **Note that there actually is no Boolean in SQLite. In SQLite, Boolean is an Integer. The program understands the keywords True and False but they are simply placeholders for 1 and 0.**
+Cursor also contains `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods.
 
 #### 2. Using fetch() ####
 `fetch()` method returns the data as List<List<Object>>.
