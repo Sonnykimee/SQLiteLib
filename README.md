@@ -132,7 +132,7 @@ statement.set("15"); // replace the second ? to 15
 db.ready(statement);
 
 // Execute the ReadyStatement
-if (db.executeReady(statement)) {
+if (db.executeReady()) {
     // Successfully executed the statement
 } else {
     // Failed to execute the statement
