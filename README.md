@@ -125,7 +125,7 @@ You can also use ReadyStatement. ReadyStatement is a safer way to execute querie
 ```java
 // Set up a ReadyStatement
 ReadyStatement statement = db.readyStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
-statement.setString(1, "Chrissy"); // replace the first ? to 'Rosie'. Note that the parameter index number starts from 1.
+statement.setString(1, "Chrissy"); // replace the first ? to 'Chrissy'. Note that the parameter index number starts from 1.
 statement.setInt(29); // replace the second ? to 29
 
 // Load the ReadyStatement
