@@ -121,7 +121,7 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
-You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from the possible [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection). If you are executing a query that directly receives input from a user, it is safer to use ReadyStatement.
+You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection). If you are executing a query that directly receives input from a user, it is safer to use ReadyStatement.
 ```java
 // Set up a ReadyStatement
 ReadyStatement statement = db.readyStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
