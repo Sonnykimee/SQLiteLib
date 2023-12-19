@@ -169,7 +169,7 @@ if (db.execute( "SELECT * FROM PERSON WHERE NAME = 'Tonny'" )) {
     
     cur.first(); // we know that there will be only one row for the result. So just go to the first row.
 
-    int age = cur.getValue("AGE", Integer.class); // Get the value in AGE column as an Integer.
+    int age = cur.getInt("AGE"); // Get the value in AGE column as an Integer. You can also use: int age = cur.getValue("AGE", Integer.class);
     Bukkit.getConsoleSender().sendMessage("\nTonny's age: " + age);
 }
 ```
