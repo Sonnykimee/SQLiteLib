@@ -110,17 +110,9 @@ public class SQLite {
         return false;
     }
 
-    /**
-     * Execute given query statement. If the given query is a DQL command,
-     * then save the fetched data in both List<List<Object>> data and Cursor.
-     *
-     * @param {String} statement The query statement to execute
-     * @return Returns true if the statement was successfully executed. Otherwise, false.
-     */
-    public boolean execute(String statement) {
+    private boolean execute(PreparedStatement ps) {
         data.clear(); // Empty previously fetched data
 
-        PreparedStatement ps = null;
         ResultSet rs = null;
         ResultSetMetaData rsmd = null;
 
@@ -129,7 +121,6 @@ public class SQLite {
 
         try {
             if (conn != null && !conn.isClosed()) {
-                ps = conn.prepareStatement(statement);
                 boolean isResultSet = ps.execute();
 
                 if (isResultSet) {
@@ -185,12 +176,57 @@ public class SQLite {
         return false;
     }
 
+    /**
+     * Execute given query statement. If the given query is a DQL command,
+     * then save the fetched data in both List<List<Object>> data and Cursor.
+     *
+     * @param {String} statement The query statement to execute
+     * @return Returns true if the statement was successfully executed. Otherwise, false.
+     */
+    public boolean execute(String statement) {
+        PreparedStatement ps = null;
+
+        try {
+            if (conn != null && !conn.isClosed()) {
+                ps = conn.prepareStatement(statement);
+
+                return execute(ps);
+            } else {
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
+            }
+        } catch (SQLException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.EXECUTE_FAILURE + ", Error Message: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a new ReadyStatement instance.
+     *
+     * This method is for the scripting plugins that cannot directly import classes inside a 3rd party plugin.
+     *
+     * @return ReadyStatement instance
+     */
+    public ReadyStatement readyStatement(String statement) {
+        ReadyStatement readyStatement = null;
+
+        try {
+
+            readyStatement = new ReadyStatement(conn.prepareStatement(statement));
+        } catch (SQLException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.PREPARED_STATEMENT_FAILURE + ", Error Message: " + e.getMessage());
+        }
+
+        return readyStatement;
+    }
+
     public void ready(ReadyStatement statement) {
         this.readyStatement = statement;
     }
 
-	public boolean executeReady() {
-		return execute(readyStatement.getStatement());
+	public boolean executeReadyStatement() {
+		return execute(readyStatement.preparedStatement());
 	}
 
     /**
