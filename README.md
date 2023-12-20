@@ -23,7 +23,7 @@ SQLiteLib is a library plugin that provides an easy way to use the SQLite databa
 
 Most Minecraft servers store their user data on a single YAML file or use MySQL as their DBMS. However, storing data on a YAML file is unsafe and performance inefficient, and MySQL might be a bit overwhelming to install and set up configurations. If you are a Minecraft server admin who is looking for a fast, light, and zero-configuration database, SQLite is a good solution. SQLiteLib is a Bukkit plugin that helps you to easily use SQLite databases on your Minecraft server.
 
-I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) since it seems like he is no longer maintaining the project. This plugin statically links **SQLite JDBC Driver 3.40.0.0** written by xerial (https://github.com/xerial/sqlite-jdbc).
+I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) since it seems like he is no longer maintaining the project. This plugin statically links **SQLite JDBC Driver** written by xerial (https://github.com/xerial/sqlite-jdbc).
 
 ---
 **Do I need to install SQLite before using this plugin?**
@@ -121,12 +121,12 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
 }
 ```
 
-You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from the possible [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection).
+You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection). If you are executing a query that directly receives input from a user, it is safer to use ReadyStatement.
 ```java
 // Set up a ReadyStatement
 ReadyStatement statement = db.readyStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
-statement.setString(1, "Chrissy"); // replace the first ? to 'Rosie'. Note that the parameter index number starts from 1.
-statement.setInt(29); // replace the second ? to 29
+statement.setString(1, "Chrissy"); // replace the first ? to 'Chrissy'. Note that the index number starts from 1.
+statement.setInt(2, 29); // replace the second ? to 29
 
 // Load the ReadyStatement
 db.ready(statement);
