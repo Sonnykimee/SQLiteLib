@@ -120,44 +120,42 @@ public class SQLite {
         List<String> columnNames = new ArrayList<>();
 
         try {
-            if (conn != null && !conn.isClosed()) {
-                boolean isResultSet = ps.execute();
+            boolean isResultSet = ps.execute();
 
-                if (isResultSet) {
-                    // DQL command; The first result is a ResultSet
-                    rs = ps.getResultSet();
-                    rsmd = rs.getMetaData();
+            if (isResultSet) {
+                // DQL command; The first result is a ResultSet
+                rs = ps.getResultSet();
+                rsmd = rs.getMetaData();
 
-                    int numCol = rsmd.getColumnCount(); // Number of values in one item
+                int numCol = rsmd.getColumnCount(); // Number of values in one item
 
-                    // Copy column names
-                    for (int i=0; i<numCol; i++) {
-                        columnNames.add(rsmd.getColumnName(i+1).toUpperCase());
-                    }
-
-                    // Copy data
-                    while (rs.next()) {
-                        List<Object> row = new ArrayList<>(); // Empty row
-
-                        for (int i=0; i<numCol; i++) {
-                            row.add(rs.getObject(i+1)); // ResultSet column index starts at 1
-                        }
-
-                        data.add(row);
-                        cursorData.add(row);
-                    }
-
-                    // Set up Cursor
-                    cursor = new Cursor(cursorData, columnNames);
-                } else {
-                    // DDL or DML  command; The first result has no result
+                // Copy column names
+                for (int i=0; i<numCol; i++) {
+                    columnNames.add(rsmd.getColumnName(i+1).toUpperCase());
                 }
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.EXECUTE_SUCCESS);
-                return true;
+                // Copy data
+                while (rs.next()) {
+                    List<Object> row = new ArrayList<>(); // Empty row
+
+                    for (int i=0; i<numCol; i++) {
+                        row.add(rs.getObject(i+1)); // ResultSet column index starts at 1
+                    }
+
+                    data.add(row);
+                    cursorData.add(row);
+                }
+
+                // Set up Cursor
+                cursor = new Cursor(cursorData, columnNames);
             } else {
-                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
+                // DDL or DML  command; The first result has no result
             }
+
+            // Send execute sucess message
+            SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.EXECUTE_SUCCESS);
+
+            return true;
         } catch (SQLException e) {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.EXECUTE_FAILURE + ", Error Message: " + e.getMessage());
         } finally {
@@ -212,8 +210,13 @@ public class SQLite {
         ReadyStatement readyStatement = null;
 
         try {
+            if (conn != null && !conn.isClosed()) {
+                PreparedStatement ps = conn.prepareStatement(statement);
 
-            readyStatement = new ReadyStatement(conn.prepareStatement(statement));
+                readyStatement = new ReadyStatement(ps);
+            } else {
+                SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
+            }
         } catch (SQLException e) {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.PREPARED_STATEMENT_FAILURE + ", Error Message: " + e.getMessage());
         }

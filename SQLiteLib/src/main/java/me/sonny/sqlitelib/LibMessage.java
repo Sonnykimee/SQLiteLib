@@ -13,7 +13,7 @@ public final class LibMessage {
     public static final String CONNECTION_CLOSE_FAILURE_NULL = "DB connection is already closed or null.";
     public static final String EXECUTE_SUCCESS = "Query statement was successfully executed!";
     public static final String EXECUTE_FAILURE = "Could not execute the query statement.";
-    public static final String PREPARED_STATEMENT_FAILURE = "Could not load PreparedStatement. The DB connection may have lost.";
+    public static final String PREPARED_STATEMENT_FAILURE = "Could not get PreparedStatement. The DB connection may have lost.";
     public static final String STATEMENT_RESULTSET_CLOSE_FAILURE = "Could not close statement or result Set.";
     public static final String COLUMN_NOT_FOUND = "Could not find a column with the given name.";
     public static final String NOT_INTEGER = "The value is not an Integer.";
