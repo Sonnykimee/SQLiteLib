@@ -17,6 +17,7 @@ public final class LibMessage {
     public static final String STATEMENT_RESULTSET_CLOSE_FAILURE = "Could not close statement or result Set.";
     public static final String COLUMN_NOT_FOUND = "Could not find a column with the given name.";
     public static final String NOT_INTEGER = "The value is not an Integer.";
+    public static final String NOT_LONG = "The value is not a Long.";
     public static final String NOT_FLOAT = "The value is not a Float.";
     public static final String NOT_DOUBLE = "The value is not a Double.";
     public static final String NOT_BOOLEAN = "The value is not a Boolean.";

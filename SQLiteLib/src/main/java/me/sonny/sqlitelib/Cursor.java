@@ -114,6 +114,32 @@ public class Cursor {
         return value;
     }
 
+    public Long getLong(int column) {
+        Long value = null;
+
+        try {
+            value = (Long) data.get(position).get(column);
+        } catch (ClassCastException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.NOT_LONG);
+        }
+
+        return value;
+    }
+    public Long getLong(String column) {
+        Long value = null;
+
+        try {
+            column = column.toUpperCase();
+            value = (Long) data.get(position).get(columnNames.indexOf(column));
+        } catch (ClassCastException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.NOT_LONG);
+        } catch (IndexOutOfBoundsException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.COLUMN_NOT_FOUND);
+        }
+
+        return value;
+    }
+
     // Float
     public Float getFloat(int column) {
         Float value = null;
