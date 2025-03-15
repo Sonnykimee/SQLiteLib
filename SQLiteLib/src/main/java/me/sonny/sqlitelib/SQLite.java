@@ -1,11 +1,6 @@
 package me.sonny.sqlitelib;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,7 +49,9 @@ public class SQLite {
                 // if the DB file does not exist, it will be automatically created.
                 conn = DriverManager.getConnection("jdbc:sqlite:" + fileName);
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName);
+                DatabaseMetaData meta = conn.getMetaData();
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName +
+                                                    ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
 
                 return true;
             } catch (SQLException e) {
@@ -96,7 +93,9 @@ public class SQLite {
                 // if the DB file does not exist, it will be automatically created.
                 conn = DriverManager.getConnection("jdbc:sqlite:" + fileName, username, password);
 
-                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName);
+                DatabaseMetaData meta = conn.getMetaData();
+                SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName +
+                                                    ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
 
                 return true;
             } catch (SQLException e) {
