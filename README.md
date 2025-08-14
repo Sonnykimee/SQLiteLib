@@ -138,7 +138,7 @@ if (db.executeReadyStatement()) {
     // ...
 }
 ```
-ReadyStatement contains `setBoolean(indexParameter, value)`, `setInt(indexParameter, value)`, `setLong(indexParameter, value)`, `setFloat(indexParameter, value)`, `setDouble(indexParameter, value)`, and `setString(indexParameter, value)` methods.
+ReadyStatement contains `setBoolean(indexParameter, value)`, `setInt(indexParameter, value)`, `setLong(indexParameter, value)`, `setFloat(indexParameter, value)`, `setDouble(indexParameter, value)`, `setString(indexParameter, value)`, and `setBytes(indexParameter, value)` methods.
 
 ---
 ### Fetching Data from DB
@@ -187,7 +187,7 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-Cursor also contains `getLong(column)`, `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods.
+Cursor also contains `getLong(column)`, `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, `getBytes(column)`, and `getValue(column, castType)` methods.
 
 #### 2. Using fetch()
 `fetch()` method returns the data as List<List<Object>>.
