@@ -63,4 +63,12 @@ public class ReadyStatement {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.PARAMETER_ERROR + ", Error Message: " + e.getMessage());
         }
     }
+
+    public void setBytes(int parameterIndex, byte[] value) {
+        try {
+            ps.setBytes(parameterIndex, value);
+        } catch (SQLException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.PARAMETER_ERROR + ", Error Message: " + e.getMessage());
+        }
+    }
 }

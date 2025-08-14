@@ -117,6 +117,7 @@ public class SQLite {
 
         List<List<Object>> cursorData = new ArrayList<>();
         List<String> columnNames = new ArrayList<>();
+        List<String> columnDataTypes = new ArrayList<>();
 
         try {
             boolean isResultSet = ps.execute();
@@ -131,6 +132,7 @@ public class SQLite {
                 // Copy column names
                 for (int i=0; i<numCol; i++) {
                     columnNames.add(rsmd.getColumnName(i+1).toUpperCase());
+                    columnDataTypes.add(rsmd.getColumnTypeName(i+1).toUpperCase());
                 }
 
                 // Copy data
@@ -146,9 +148,10 @@ public class SQLite {
                 }
 
                 // Set up Cursor
-                cursor = new Cursor(cursorData, columnNames);
+                cursor = new Cursor(cursorData, columnNames, columnDataTypes);
             } else {
-                // DDL or DML  command; The first result has no result
+                // DDL or DML command; The first result has no result
+                SQLiteLib.PLUGIN.getLogger().log(Level.WARNING, LibMessage.EMPTY_RESULTSET);
             }
 
             // Send execute sucess message

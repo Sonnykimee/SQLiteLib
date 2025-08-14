@@ -15,9 +15,12 @@ public class Cursor {
 
     private List<String> columnNames;
 
-    protected Cursor(List<List<Object>> data, List<String> columnNames) {
+    private List<String> columnDataTypes;
+
+    protected Cursor(List<List<Object>> data, List<String> columnNames, List<String> columnDataTypes) {
         this.data = data;
         this.columnNames = columnNames;
+        this.columnDataTypes = columnDataTypes;
         position = -1;
     }
 
@@ -45,7 +48,7 @@ public class Cursor {
 
     /**
      * Move pivot to the next position.
-     * @return If there is next, returns true. Otherwise false.
+     * @return If there is next, returns true. Otherwise, false.
      */
     public boolean next() {
         if (data.size() > 0 && position < data.size()-1) {
@@ -58,7 +61,7 @@ public class Cursor {
 
     /**
      * Move pivot to the previous position.
-     * @return If there is previous, returns true. Otherwise false.
+     * @return If there is previous, returns true. Otherwise, false.
      */
     public boolean previous() {
         if (data.size() > 0 && position > 1) {
@@ -196,7 +199,7 @@ public class Cursor {
     }
 
     // Boolean
-    // *Boolean is actually an Integer in SQLite, True is a placeholder for 1, False for 0.*
+    // Boolean is actually an Integer in SQLite, True is a placeholder for 1, False for 0.*
     public Boolean getBoolean(int column) {
         Integer value;
 
@@ -245,7 +248,12 @@ public class Cursor {
 
     // String
     public String getString(int column) {
-        String value = data.get(position).get(column).toString();
+        String value = null;
+        try {
+            value = data.get(position).get(column).toString();
+        } catch (IndexOutOfBoundsException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.COLUMN_NOT_FOUND);
+        }
 
         return value;
     }
@@ -254,6 +262,45 @@ public class Cursor {
         try {
             column = column.toUpperCase();
             value = data.get(position).get(columnNames.indexOf(column)).toString();
+        } catch (IndexOutOfBoundsException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.COLUMN_NOT_FOUND);
+        }
+
+        return value;
+    }
+
+    // BLOB
+    public byte[] getBytes(int column) {
+        byte[] value = null;
+        try {
+            Object obj = data.get(position).get(column);
+
+            if (obj == null) return value;
+
+            if (obj instanceof byte[]) {
+                value = (byte[]) obj;
+            } else {
+                value = obj.toString().getBytes();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.COLUMN_NOT_FOUND);
+        }
+
+        return value;
+    }
+    public byte[] getBytes(String column) {
+        byte[] value = null;
+        try {
+            column = column.toUpperCase();
+            Object obj = data.get(position).get(columnNames.indexOf(column));
+
+            if (obj == null) return value;
+
+            if (obj instanceof byte[]) {
+                value = (byte[]) obj;
+            } else {
+                value = obj.toString().getBytes();
+            }
         } catch (IndexOutOfBoundsException e) {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.COLUMN_NOT_FOUND);
         }
