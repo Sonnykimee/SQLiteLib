@@ -1,16 +1,16 @@
 # Table of Contents
 - [SQLiteLib](#SQLiteLib)
   - [Usage](#Usage)
-    - [Commands ###](#Commands-)
-    - [Permission ###](#Permission-)
-    - [Linking Your Plugin Project with SQLiteLib ###](#Linking-Your-Plugin-Project-with-SQLiteLib-)
-    - [Accessing SQLiteLib instance ###](#Accessing-SQLiteLib-instance-)
-    - [Accessing default DB and Creating a Connection ###](#Accessing-default-DB-and-Creating-a-Connection-)
-    - [Using more than one DB ###](#Using-more-than-one-DB-)
-    - [Executing a Statement ###](#Executing-a-Statement-)
-    - [Fetching Data from DB ###](#Fetching-Data-from-DB-)
-    - [Writing BLOB ###](#Writing-BLOB-)
-  - [Examples ##](#Examples-)
+    - [Commands](#Commands)
+    - [Permission](#Permission)
+    - [Linking Your Plugin Project with SQLiteLib](#Linking-Your-Plugin-Project-with-SQLiteLib)
+    - [Accessing SQLiteLib instance](#Accessing-SQLiteLib-instance)
+    - [Accessing default DB and Creating a Connection](#Accessing-default-DB-and-Creating-a-Connection)
+    - [Using more than one DB](#Using-more-than-one-DB)
+    - [Executing a Statement](#Executing-a-Statement)
+    - [Fetching Data from DB](#Fetching-Data-from-DB)
+    - [Writing BLOB](#Writing-BLOB)
+  - [Examples](#Examples)
   - [Future Updates](#Future-Updates)
 
 # SQLiteLib
@@ -34,7 +34,7 @@ Due to the compact, serveless architecture of SQLite, ***you actually don't even
 If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](https://sqlitebrowser.org)
 
 ## Usage
-### Commands ###
+### Commands
 **Note that the SQLiteLib is meant to be linked by other plugins or scripts. Commands are only meant to provide some convinience.**
 
 /sqlite - see /sqlite commands
@@ -47,10 +47,10 @@ If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](h
 
 /sqlite check - Check the status of current connection.
 
-### Permission ###
+### Permission
 sqlite.use - Use /sqlite commands
 
-### Linking Your Plugin Project with SQLiteLib ###
+### Linking Your Plugin Project with SQLiteLib
 1. Download **SQLiteLib.jar** and put it in your **plugins** folder (just like how you add any other plugins to your server).
 2. Add **SQLiteLib.jar** to your Java project build path.
 3. Then, add `SQLiteLib` as a dependency to your project's **plugin.yml** file:
@@ -59,7 +59,7 @@ depend: [SQLiteLib]
 ```
 
 ---
-### Accessing SQLiteLib instance ###
+### Accessing SQLiteLib instance
 Use the following code to access the library.
 ```java
 public static SQLiteLib sqliteLib;
@@ -74,7 +74,7 @@ public void onEnable() {
 ```
 
 ---
-### Accessing default DB and Creating a Connection ###
+### Accessing default DB and Creating a Connection
 Once, your project is properly linked to SQLiteLib, you can access its classes and methods. Use the below code to access the default DB and create a connection to a DB file.
 ```java
 if (sqliteLib != null) {
@@ -91,7 +91,7 @@ if (sqliteLib != null) {
 
 To create a connection to a DB file, use `connect(fileName)`. **fileName** parameter is the path of your DB file location from the root of your server folder (where the bukkit jar file is). In this example, the path is "plugins/TriggerReactor/SavedData/DB/test.db" from the root of my server folder. If the DB file does not exist, it will automatically create a new DB file. **Note that the plugin does not create a new folder, though. You must pass an existing directory.**
 
-### Using more than one DB ###
+### Using more than one DB
 You can create more than just the default DB using below code:
 ```java
 // Create a new SQLite DB using createDB(dbName).
@@ -106,7 +106,7 @@ myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
 **dbName** parameter is a String, and you can give any name to it. However, the name will be saved as all uppercases. Be careful not to assign a duplicating name, the new one will replace the pre-existing one.
 
 ---
-### Executing a Statement ###
+### Executing a Statement
 You can execute SQLite statements using `execute(statement)` method.
 
 Below code creates a new DB Table **PERSON** that has **NAME** and **AGE** as its values, then inserts an item that has name Sonny, and 13 years old:
@@ -141,10 +141,10 @@ if (db.executeReadyStatement()) {
 ReadyStatement contains `setBoolean(indexParameter, value)`, `setInt(indexParameter, value)`, `setLong(indexParameter, value)`, `setFloat(indexParameter, value)`, `setDouble(indexParameter, value)`, and `setString(indexParameter, value)` methods.
 
 ---
-### Fetching Data from DB ###
+### Fetching Data from DB
 There are two ways to fetch data: Using `Cursor` class, or using `fetch()` method.
 
-#### 1. Using Cursor (recommended) ####
+#### 1. Using Cursor (recommended)
 `Cursor` provides a convenient way to get data without having to parse the data by yourself.
 
 Here's an example of using a `Cursor`. **Let's assume that PERSON table has three items: (Sonny, 13), (Tonny, 25), and (Ronny, 31):**
@@ -189,7 +189,7 @@ Using `getInt(column name)`, you can get the the current item's that is stored i
 
 Cursor also contains `getLong(column)`, `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods.
 
-#### 2. Using fetch() ####
+#### 2. Using fetch()
 `fetch()` method returns the data as List<List<Object>>.
 
 Since the data is an `Object` instance, you need to manually parse Object into a specific data type.
@@ -227,12 +227,12 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 ```
 
 ---
-### Writing BLOB ###
+### Writing BLOB
 BLOB (Binary Large Object) types can contain large amount of data such as images. As of version 0.2.0, SQLiteLib only has a temporary solution to write BLOB.
 
 Check out a simple plugin I wrote to learn how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
 	
-## Examples ##
+## Examples
 Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
 
 ***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
