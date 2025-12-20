@@ -1,3 +1,6 @@
+
+
+
 - [SQLiteLib](#sqlitelib)
   * [Usage](#usage)
     + [Commands](#commands)
@@ -8,11 +11,10 @@
     + [Using more than one DB](#using-more-than-one-db)
     + [Executing a Statement](#executing-a-statement)
     + [Fetching Data from DB](#fetching-data-from-db)
-      - [1. Using Cursor (recommended)](#1-using-cursor--recommended-)
-      - [2. Using fetch()](#2-using-fetch--)
-    + [Writing BLOB](#writing-blob)
-  * [Examples](#examples)
-  * [Future Updates](#future-updates)
+      - 1. Using Cursor (recommended)
+      - 2. Using fetch()
+  * [Example](#example)
+  * [To dos](#to-dos)
 
 # SQLiteLib
 <img src="images\sqlitelib_logo.png">
@@ -23,14 +25,16 @@ SQLiteLib is a library plugin that provides an easy way to use the SQLite databa
 
 Most Minecraft servers store their user data on a single YAML file or use MySQL as their DBMS. However, storing data on a YAML file is unsafe and performance inefficient, and MySQL might be a bit overwhelming to install and set up configurations. If you are a Minecraft server admin who is looking for a fast, light, and zero-configuration database, SQLite is a good solution. SQLiteLib is a Bukkit plugin that helps you to easily use SQLite databases on your Minecraft server.
 
-I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) since it seems like he is no longer maintaining the project. This plugin statically links **SQLite JDBC Driver** written by xerial (https://github.com/xerial/sqlite-jdbc).
+I decided to write this plugin after finding out about SQLiteLib written by pablo67340 (https://github.com/pablo67340/SQLiteLib) since it seems like he is no longer maintaining the project.
+
+This plugin statically links **SQLite JDBC Driver** written by xerial (https://github.com/xerial/sqlite-jdbc).
 
 ---
 **Do I need to install SQLite before using this plugin?**
 
 ***No. You don't.***
 
-Due to the compact, serveless architecture of SQLite, ***you actually don't even need to install SQLite*** before using this plugin. The JDBC driver inside the plugin handles SQLite DB files.
+Due to the compact, serveless architecture of SQLite, ***you actually don't even need to install SQLite*** before using this plugin.
 
 If you need a GUI SQLite database editor, you can try: [DB Browser for SQLite](https://sqlitebrowser.org)
 
@@ -69,7 +73,7 @@ public static SQLiteLib sqliteLib;
 public void onEnable() {
     sqliteLib = SQLiteLib.getSQLiteLib();
 
-    // VVVV You can also use the code below. They are almost the same. VVVV
+    // Alternatively, you can also use the code below:    
     // sqliteLib = (SQLiteLib) Bukkit.getPluginManager().getPlugin("SQLiteLib");
 }
 ```
@@ -80,35 +84,35 @@ Once, your project is properly linked to SQLiteLib, you can access its classes a
 ```java
 if (sqliteLib != null) {
     SQLite db = sqliteLib.DB(); // Getting the default SQLite DB instance.
-    db = sqliteLib.DB("default"); // You can also get the deafult DB instance using "default" as parameter.
+    db = sqliteLib.DB("DEFAULT"); // You can also get the deafult DB instance using "default" as parameter.
     
-    // Create a connection to a DB file that is located at "<root>/plugins/TriggerReactor/SavedData/DB/test.db".
+    // Create a connection to a DB file that is located at "<root>/plugins/SavedData/DB/test.db".
     // The <root> is the location of your bukkit jar file.
     // If the file does not exist, the plugins will create a new DB file.
-    db.connect( "plugins/TriggerReactor/SavedData/DB/test.db" );
+    db.connect( "plugins/SavedData/DB/test.db" );
 }
 ```
 `DB()` method returns a default SQLite DB instance that is pre-initialized.
 
-To create a connection to a DB file, use `connect(fileName)`. **fileName** parameter is the path of your DB file location from the root of your server folder (where the bukkit jar file is). In this example, the path is "plugins/TriggerReactor/SavedData/DB/test.db" from the root of my server folder. If the DB file does not exist, it will automatically create a new DB file. **Note that the plugin does not create a new folder, though. You must pass an existing directory.**
+To create a connection to a DB file, use `connect(fileName)`. **fileName** parameter is the path of your DB file location from the root of your server folder (where the bukkit jar file is). In this example, the path is "plugins/SavedData/DB/test.db" from the root of my server folder. If the DB file does not exist, it will automatically create a new DB file. **Note that the plugin does not create a new folder, though. You must pass an existing directory.**
 
 ### Using more than one DB ###
 You can create more than just the default DB using below code:
 ```java
 // Create a new SQLite DB using createDB(dbName).
 // All DB names are saved in uppercases. Be careful not to overwrite the previous DB connection.
-SQLite myNewDB = sqliteLib.createDB("mynewdb");
+SQLite myNewDB = sqliteLib.createDB("MYNEWDB");
 					
 // You can always use DB(dbName) to get the instance of the created DB.
-myNewDB = sqliteLib.DB("mynewdb");
+myNewDB = sqliteLib.DB("MYNEWDB");
 					
-myNewDB.connect( "plugins/TriggerReactor/SavedData/DB/mytest2.db" );
+myNewDB.connect( "plugins/SavedData/DB/mytest2.db" );
 ```
 **dbName** parameter is a String, and you can give any name to it. However, the name will be saved as all uppercases. Be careful not to assign a duplicating name, the new one will replace the pre-existing one.
 
 ---
 ### Executing a Statement ###
-You can execute SQLite statements using `execute(statement)` method.
+(Simple)  You can execute SQLite statements using `execute(statement)` method.
 
 Below code creates a new DB Table **PERSON** that has **NAME** and **AGE** as its values, then inserts an item that has name Sonny, and 13 years old:
 ```java
@@ -120,26 +124,35 @@ if (db.execute( "CREATE TABLE IF NOT EXISTS PERSON (NAME TEXT, AGE INTEGER)" )) 
     // ...
 }
 ```
-
-You can also use ReadyStatement. ReadyStatement is a safer way to execute queries as it protects the database system from [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection). If you are executing a query that directly receives input from a user, it is safer to use ReadyStatement.
+**(Recommended)** I recommend to use **PrepStatement**. **PrepStatement** is a safer way to execute queries as it protects the database system from [injection attacks](https://owasp.org/www-community/attacks/SQL_Injection). If you are executing a query that includes input from users, using **PrepStatement** is strongly recommended.
 ```java
-// Set up a ReadyStatement
-ReadyStatement statement = db.readyStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
-statement.setString(1, "Chrissy"); // replace the first ? to 'Chrissy'. Note that the index number starts from 1.
+// Set up a PrepStatement
+PrepStatement statement = db.createPrepStatement( "INSERT OR REPLACE INTO PERSON VALUES (?, ?)" );
+
+// replace the first ? to 'Chrissy'.
+// Note that the index number starts from 1.
+statement.setString(1, "Chrissy");
 statement.setInt(2, 29); // replace the second ? to 29
 
-// Load the ReadyStatement
-db.ready(statement);
+// Load the PrepStatement
+db.prepare(statement);
 
-// Execute the ReadyStatement
-if (db.executeReadyStatement()) {
+// Execute the PrepStatement
+if (db.executePrepStatement()) {
     // Successfully executed the statement
 } else {
     // Failed to execute the statement
     // ...
 }
 ```
-ReadyStatement contains `setBoolean(indexParameter, value)`, `setInt(indexParameter, value)`, `setLong(indexParameter, value)`, `setFloat(indexParameter, value)`, `setDouble(indexParameter, value)`, and `setString(indexParameter, value)` methods.
+**PrepStatement** supports:
+- `setBoolean(indexParameter, value)`
+- `setInt(indexParameter, value)`
+- `setLong(indexParameter, value)`
+- `setFloat(indexParameter, value)`
+- `setDouble(indexParameter, value)`
+- `setString(indexParameter, value)`
+- `setBytes(indexParameter, value)`
 
 ---
 ### Fetching Data from DB ###
@@ -188,12 +201,20 @@ If there is a next row, `next()` method moves the position of the pointer to the
 
 Using `getInt(column name)`, you can get the the current item's that is stored in the specified column as an intger type. You can also use column index number as parameter, but unsafe since the order of column is not always guaranteed.
 
-Cursor also contains `getLong(column)`, `getFloat(column)`, `getDouble(column)`, `getString(column)`, `getBoolean(column)`, and `getValue(column, castType)` methods.
+Cursor supports:
+- `getInt(column)`, `getInt(columnName)`
+- `getLong(column)`, `getLong(columnName)`
+- `getFloat(column)`, `getFloat(columnName)`
+- `getDouble(column)`, `getDouble(columnName)`
+- `getString(column)`, `getString(columnName)`
+- `getBoolean(column)`, `getBoolean(columnName)`
+- `getBytes(column)`, `getBytes(columnName)`
+- `getValue(column, castType)`, `getValue(columnName, castType)`
 
 #### 2. Using fetch() ####
 `fetch()` method returns the data as List<List<Object>>.
 
-Since the data is an `Object` instance, you need to manually parse Object into a specific data type.
+Since the data is an `Object` instance, you need to manually parse **Object** instance into a specific data type instance.
 
 Here's an example of how to use `fetch()`.
 ```java
@@ -228,20 +249,8 @@ db.execute( "SELECT * FROM PERSON WHERE NAME='Sonny'" );
 ```
 
 ---
-### Writing BLOB ###
-BLOB (Binary Large Object) types can contain large amount of data such as images. As of version 0.2.0, SQLiteLib only has a temporary solution to write BLOB.
+## Example ##
+* Check out this simple test plugin I wrote to help your understand how to use SQLiteLib: [SQLiteLibTest](/examples/TesterPlugin)
 
-Check out a simple plugin I wrote to learn how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
-	
-## Examples ##
-Some examples are written in TriggerReactor script language since that was my initial reason of writing this library. However, translating the script to Java language should be easy.
-
-***What is TriggerReactor?*** [TriggerReactor](https://www.spigotmc.org/resources/triggerreactor-script-for-everything.40987/) is a powerful scripting engine that provides a convenient Minecraft server scripting environment. The engine supports amazing features such as importing Bukkit API methods and third-party plugin access (I'm not paid to advertise this plugin).
-
----
-* Basics: [example_01](/examples/example_01.md)
-* A simple plugin I wrote to help your understanding including how to write BLOB: [SQLiteLibTester](/examples/TesterPlugin)
-
-## Future Updates
-1. Image -> BLOB write support (now partially implemented)
-2. Configurations
+## To dos
+1. Table format printer to display query result.

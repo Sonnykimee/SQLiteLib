@@ -14,13 +14,13 @@ public class SQLite {
     // Cursor provides a convenient way to get values from the read data.
     private Cursor cursor;
 
-    private ReadyStatement readyStatement;
+    private PrepStatement prepStatement;
 
     // Constructor
     public SQLite() {
         data = new ArrayList<>();
         cursor = null;
-        readyStatement = null;
+        prepStatement = null;
     }
 
     /**
@@ -51,7 +51,7 @@ public class SQLite {
 
                 DatabaseMetaData meta = conn.getMetaData();
                 SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName +
-                                                    ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
+                        ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
 
                 return true;
             } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class SQLite {
 
                 DatabaseMetaData meta = conn.getMetaData();
                 SQLiteLib.PLUGIN.getLogger().log(Level.INFO, LibMessage.CONNECTION_ESTABLISHED + ", DB file location: " + fileName +
-                                                    ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
+                        ", Driver name/version: " +  meta.getDriverName() + " " + meta.getDriverVersion());
 
                 return true;
             } catch (SQLException e) {
@@ -202,20 +202,20 @@ public class SQLite {
     }
 
     /**
-     * Returns a new ReadyStatement instance.
+     * Returns a new PrepStatement instance.
      *
      * This method is for the scripting plugins that cannot directly import classes inside a 3rd party plugin.
      *
-     * @return ReadyStatement instance
+     * @return PrepStatement instance
      */
-    public ReadyStatement readyStatement(String statement) {
-        ReadyStatement readyStatement = null;
+    public PrepStatement createPrepStatement(String statement) {
+        PrepStatement prepStatement = null;
 
         try {
             if (conn != null && !conn.isClosed()) {
                 PreparedStatement ps = conn.prepareStatement(statement);
 
-                readyStatement = new ReadyStatement(ps);
+                prepStatement = new PrepStatement(ps);
             } else {
                 SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.CONNECTION_CLOSE_FAILURE_NULL);
             }
@@ -223,16 +223,16 @@ public class SQLite {
             SQLiteLib.PLUGIN.getLogger().log(Level.SEVERE, LibMessage.PREPARED_STATEMENT_FAILURE + ", Error Message: " + e.getMessage());
         }
 
-        return readyStatement;
+        return prepStatement;
     }
 
-    public void ready(ReadyStatement statement) {
-        this.readyStatement = statement;
+    public void prepare(PrepStatement statement) {
+        this.prepStatement = statement;
     }
 
-	public boolean executeReadyStatement() {
-		return execute(readyStatement.preparedStatement());
-	}
+    public boolean executePrepStatement() {
+        return execute(prepStatement.preparedStatement());
+    }
 
     /**
      * Close current DB connection.

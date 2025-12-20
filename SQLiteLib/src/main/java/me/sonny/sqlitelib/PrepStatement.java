@@ -4,11 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-public class ReadyStatement {
+public class PrepStatement {
 
     private PreparedStatement ps;
 
-    protected ReadyStatement(PreparedStatement ps) {
+    protected PrepStatement(PreparedStatement ps) {
         this.ps = ps;
     }
 
